@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Portfolio | 艺术作品集</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#0a0a0c',
+                            800: '#121318',
+                            700: '#1a1c23',
+                            600: '#262933',
+                        },
+                        accent: {
+                            purple: '#a855f7',
+                            pink: '#ec4899',
+                            cyan: '#06b6d4',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262933;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f4454;
+        }
+        
+        .glass-panel {
+            background: rgba(18, 19, 24, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(26, 28, 35, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(168, 85, 247, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(168, 85, 247, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-border {
+            position: relative;
+            background: #0a0a0c;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(135deg, #a855f7, #ec4899, #06b6d4);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0.4;
+            transition: opacity 0.3s;
+        }
+        .gradient-border:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-zinc-200 font-sans antialiased min-h-screen selection:bg-purple-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- Background Ambient Glows -->
+    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+    <div class="fixed bottom-1/3 right-1/4 w-[600px] h-[600px] bg-pink-900/15 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+    <div class="fixed top-1/2 left-2/3 w-[400px] h-[400px] bg-cyan-900/15 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-white/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="font-heading text-2xl font-bold tracking-tight flex items-center gap-2 group">
+                <span class="w-3 h-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 group-hover:scale-125 transition-transform duration-300"></span>
+                <span class="text-white tracking-wider group-hover:text-purple-400 transition-colors">ARTPORTFOLIO</span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-zinc-400">
+                <a href="#work" class="hover:text-white transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-purple-500 hover:after:w-full after:transition-all">作品 (Work)</a>
+                <a href="#about" class="hover:text-white transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-purple-500 hover:after:w-full after:transition-all">关于 (About)</a>
+                <a href="#contact" class="hover:text-white transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-purple-500 hover:after:w-full after:transition-all">联系 (Contact)</a>
+            </nav>
+
+            <!-- Social / Action Button -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="#contact" class="px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-white/5 hover:bg-purple-600/30 border border-white/10 hover:border-purple-500/50 transition-all duration-300">
+                    联系合作
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-zinc-400 hover:text-white focus:outline-none" aria-label="Toggle Navigation Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-6 border-t border-white/5 bg-dark-900/95 backdrop-blur-xl">
+            <div class="flex flex-col space-y-4 pt-2">
+                <a href="#work" class="mobile-nav-link text-zinc-300 hover:text-purple-400 font-medium py-1">作品 (Work)</a>
+                <a href="#about" class="mobile-nav-link text-zinc-300 hover:text-purple-400 font-medium py-1">关于 (About)</a>
+                <a href="#contact" class="mobile-nav-link text-zinc-300 hover:text-purple-400 font-medium py-1">联系 (Contact)</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative max-w-7xl mx-auto px-6 pt-20 pb-16 md:pt-32 md:pb-24">
+        <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-medium mb-6">
+                <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+                艺术与视觉设计作品集
+            </div>
+            
+            <h1 class="font-heading text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
+                探索创意的<br/>
+                <span class="gradient-text">无限可能与艺术视角</span>
+            </h1>
+            
+            <p class="text-zinc-400 text-lg sm:text-xl leading-relaxed mb-10 max-w-2xl font-light">
+                欢迎来到我的个人作品集空间。这里记录了我在数字插画、概念设计与视觉艺术创作中的精选作品与思考。
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4">
+                <a href="#work" class="px-7 py-3.5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg shadow-purple-600/25 transition-all duration-300 transform hover:-translate-y-0.5">
+                    浏览作品集
+                </a>
+                <a href="#about" class="px-7 py-3.5 rounded-full text-sm font-semibold text-zinc-300 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300">
+                    了解更多
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Works Section -->
+    <section id="work" class="max-w-7xl mx-auto px-6 py-16 border-t border-white/5">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white tracking-tight mb-3">精选作品</h2>
+                <p class="text-zinc-400 text-sm">点击任意作品可放大查看高清画质</p>
+            </div>
+
+            <!-- Category Filter Buttons -->
+            <div id="filter-container" class="flex flex-wrap gap-2">
+                <button data-filter="all" class="filter-btn active px-4 py-2 rounded-full text-xs font-semibold transition-all bg-purple-600 text-white border border-purple-500">
+                    全部 (All)
+                </button>
+                <button data-filter="illustration" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold transition-all bg-white/5 text-zinc-400 border border-white/10 hover:text-white hover:border-white/20">
+                    插画设计
+                </button>
+                <button data-filter="concept" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold transition-all bg-white/5 text-zinc-400 border border-white/10 hover:text-white hover:border-white/20">
+                    概念设计
+                </button>
+            </div>
+        </div>
+
+        <!-- Artwork Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+
+            <!-- Artwork Item 1 -->
+            <div class="art-card glass-card rounded-2xl overflow-hidden group cursor-pointer" 
+                 data-category="concept"
+                 data-title="ARTBOOK Collection Vol. 06"
+                 data-medium="数字概念插画 / Digital Painting"
+                 data-year="2026"
+                 data-desc="个人概念艺术系列作品 06，探索光影、构图与细节质感的深刻表达。"
+                 data-img="images/ARTBOOK-06.png">
+                <div class="relative overflow-hidden aspect-[4/3] bg-dark-800">
+                    <img src="images/ARTBOOK-06.png" 
+                         alt="ARTBOOK Collection Vol. 06" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                         loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-xs uppercase tracking-wider text-purple-400 font-semibold mb-1">概念设计</span>
+                        <h3 class="text-xl font-bold text-white">ARTBOOK Collection Vol. 06</h3>
+                        <p class="text-xs text-zinc-300 mt-1 line-clamp-2">点击放大全屏预览画作细节</p>
+                    </div>
+                </div>
+                <div class="p-6 flex items-center justify-between border-t border-white/5">
+                    <div>
+                        <h3 class="font-semibold text-white group-hover:text-purple-300 transition-colors">ARTBOOK Collection Vol. 06</h3>
+                        <p class="text-xs text-zinc-400 mt-1">数字概念插画 · 2026</p>
+                    </div>
+                    <span class="w-10 h-10 rounded-full bg-white/5 group-hover:bg-purple-600/30 group-hover:text-purple-300 border border-white/10 flex items-center justify-center text-zinc-400 transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Artwork Item 2 -->
+            <div class="art-card glass-card rounded-2xl overflow-hidden group cursor-pointer" 
+                 data-category="illustration"
+                 data-title="ARTBOOK Collection Vol. 08"
+                 data-medium="视觉插画设计 / Visual Art"
+                 data-year="2026"
+                 data-desc="个人概念艺术系列作品 08，注重氛围营造与独特的色彩调性呈现。"
+                 data-img="images/ARTBOOK-08.png">
+                <div class="relative overflow-hidden aspect-[4/3] bg-dark-800">
+                    <img src="images/ARTBOOK-08.png" 
+                         alt="ARTBOOK Collection Vol. 08" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                         loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-xs uppercase tracking-wider text-pink-400 font-semibold mb-1">插画设计</span>
+                        <h3 class="text-xl font-bold text-white">ARTBOOK Collection Vol. 08</h3>
+                        <p class="text-xs text-zinc-300 mt-1 line-clamp-2">点击放大全屏预览画作细节</p>
+                    </div>
+                </div>
+                <div class="p-6 flex items-center justify-between border-t border-white/5">
+                    <div>
+                        <h3 class="font-semibold text-white group-hover:text-pink-300 transition-colors">ARTBOOK Collection Vol. 08</h3>
+                        <p class="text-xs text-zinc-400 mt-1">视觉插画设计 · 2026</p>
+                    </div>
+                    <span class="w-10 h-10 rounded-full bg-white/5 group-hover:bg-pink-600/30 group-hover:text-pink-300 border border-white/10 flex items-center justify-center text-zinc-400 transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+
+            <!-- 说明提示：如何添加更多作品卡片 -->
+            <!-- 
+                如果你想添加更多作品，只需复制上面的 <div class="art-card ...">...</div>，
+                把 data-img 指向 images/ 里的新图片文件名即可！
+            -->
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Info -->
+            <div class="lg:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 text-purple-400 text-xs font-semibold uppercase tracking-wider">
+                    <span class="w-8 h-[1px] bg-purple-500"></span>
+                    About Me
+                </div>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                    探索艺术与创意的视界
+                </h2>
+                <p class="text-zinc-400 leading-relaxed font-light">
+                    我是一名专注于数字绘画与概念设计的艺术创作者。热衷于在视觉作品中探索独特氛围感、色彩表现力与故事感。
+                </p>
+                <p class="text-zinc-400 leading-relaxed font-light">
+                    无论是商业项目合作还是个人创作，我都致力于将每一个想法转化为触动人心的视觉体验。
+                </p>
+
+                <!-- Tools & Skills -->
+                <div class="pt-4">
+                    <h3 class="text-xs uppercase tracking-wider text-zinc-500 font-semibold mb-4">常用工具 / Software & Tools</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-zinc-300">Photoshop</span>
+                        <span class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-zinc-300">Procreate</span>
+                        <span class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-zinc-300">Blender 3D</span>
+                        <span class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-zinc-300">Clip Studio Paint</span>
+                        <span class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-zinc-300">Illustrator</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Stats / Feature Box -->
+            <div class="lg:col-span-5">
+                <div class="glass-card rounded-3xl p-8 border border-white/10 space-y-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <div class="border-b border-white/5 pb-6">
+                        <div class="text-3xl font-extrabold text-white font-heading">Digital & Concept Art</div>
+                        <div class="text-xs text-purple-400 mt-1">创作方向</div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-zinc-400">擅长风格</span>
+                            <span class="text-zinc-200 font-medium">概念设计 / 数字插画 / 视觉美术</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-zinc-400">合作状态</span>
+                            <span class="text-emerald-400 font-medium flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                接受约稿 & 商业合作
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/5">
+        <div class="glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden text-center max-w-4xl mx-auto">
+            <div class="absolute inset-0 bg-gradient-to-r from-purple-900/10 via-pink-900/10 to-cyan-900/10 pointer-events-none"></div>
+            
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
+                联系与合作
+            </h2>
+            <p class="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto mb-8 font-light">
+                如果您有项目约稿、商业合作意向或任何创作交流，欢迎随时通过社交媒体或邮件与我联系！
+            </p>
+
+            <!-- Contact Buttons -->
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <a href="mailto:your_email@example.com" class="px-6 py-3 rounded-full text-xs font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all shadow-lg shadow-purple-600/20">
+                    📧 发送邮件联系 (Email)
+                </a>
+                <a href="https://artstation.com" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full text-xs font-bold text-zinc-300 bg-white/5 border border-white/10 hover:border-white/20 hover:text-white transition-all">
+                    ArtStation
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full text-xs font-bold text-zinc-300 bg-white/5 border border-white/10 hover:border-white/20 hover:text-white transition-all">
+                    Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 py-8 text-center text-xs text-zinc-500">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>© <span id="year">2026</span> Art Portfolio. All rights reserved.</div>
+            <div class="flex space-x-6 text-zinc-400">
+                <a href="#work" class="hover:text-white transition-colors">作品</a>
+                <a href="#about" class="hover:text-white transition-colors">关于</a>
+                <a href="#contact" class="hover:text-white transition-colors">联系</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal for Artworks -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden opacity-0 bg-dark-900/95 backdrop-blur-2xl transition-opacity duration-300 flex items-center justify-center p-4 sm:p-8">
+        <!-- Close Button -->
+        <button id="modal-close" class="absolute top-6 right-6 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors focus:outline-none" aria-label="Close Lightbox Modal">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <div class="max-w-5xl w-full max-h-[90vh] flex flex-col lg:flex-row glass-panel rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+            <!-- Modal Image Container -->
+            <div class="lg:w-2/3 bg-black/50 flex items-center justify-center p-4 overflow-hidden relative min-h-[300px] lg:min-h-[500px]">
+                <img id="modal-img" src="" alt="" class="max-h-[75vh] w-auto object-contain rounded-xl shadow-2xl">
+            </div>
+
+            <!-- Modal Details Side Panel -->
+            <div class="lg:w-1/3 p-6 sm:p-8 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-white/10 bg-dark-800/80">
+                <div>
+                    <span id="modal-medium" class="inline-block text-xs uppercase tracking-wider text-purple-400 font-semibold mb-2"></span>
+                    <h3 id="modal-title" class="font-heading text-2xl font    <!-- Interactive Scripts -->
+    <script>
+        // Set dynamic copyright year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Web Audio API Sound Effects (Zero external file dependencies)
+        function playChimeSound() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                osc.frequency.exponentialRampToValueAtTime(659.25, ctx.currentTime + 0.08); // E5
+                osc.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.18); // G5
+
+                gain.gain.setValueAtTime(0.04, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(ctx.currentTime + 0.25);
+            } catch (e) {
+                // Audio context might be restricted before first gesture
+            }
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Category Filter Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const artCards = document.querySelectorAll('.art-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                playChimeSound();
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-purple-600', 'text-white', 'border-purple-500');
+                    b.classList.add('bg-white/5', 'text-zinc-400', 'border-white/10');
+                });
+                btn.classList.add('active', 'bg-purple-600', 'text-white', 'border-purple-500');
+                btn.classList.remove('bg-white/5', 'text-zinc-400', 'border-white/10');
+
+                const filter = btn.getAttribute('data-filter');
+
+                artCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Lightbox Modal Logic
+        const lightboxModal = document.getElementById('lightbox-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMedium = document.getElementById('modal-medium');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalYear = document.getElementById('modal-year');
+        const modalViewFull = document.getElementById('modal-view-full');
+        const modalClose = document.getElementById('modal-close');
+
+        function openModal(card) {
+            playChimeSound();
+            const imgUrl = card.getAttribute('data-img');
+            const title = card.getAttribute('data-title');
+            const medium = card.getAttribute('data-medium');
+            const desc = card.getAttribute('data-desc');
+            const year = card.getAttribute('data-year');
+
+            modalImg.src = imgUrl;
+            modalImg.alt = title;
+            modalTitle.textContent = title;
+            modalMedium.textContent = medium;
+            modalDesc.textContent = desc;
+            modalYear.textContent = year;
+            modalViewFull.onclick = () => window.open(imgUrl, '_blank');
+
+            lightboxModal.classList.remove('hidden');
+            setTimeout(() => {
+                lightboxModal.classList.remove('opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            lightboxModal.classList.add('opacity-0');
+            setTimeout(() => {
+                lightboxModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        artCards.forEach(card => {
+            card.addEventListener('click', () => openModal(card));
+        });
+
+        modalClose.addEventListener('click', closeModal);
+
+        lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !lightboxModal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    </script>'hidden');
+            setTimeout(() => {
+                lightboxModal.classList.remove('opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            lightboxModal.classList.add('opacity-0');
+            setTimeout(() => {
+                lightboxModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        artCards.forEach(card => {
+            card.addEventListener('click', () => openModal(card));
+        });
+
+        modalClose.addEventListener('click', closeModal);
+
+        lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !lightboxModal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
