@@ -209,8 +209,15 @@
 
                     <!-- FYP Project Viewer Section (1 Single Screen for all 11 FYP images with bottom thumbnail selector) -->
                     <section id="fyp-project" class="snap-start h-full w-full p-2 sm:p-3 flex flex-col justify-between items-center relative">
-                        <div class="w-full flex-1 rounded-2xl overflow-hidden bg-dark-900 border border-white/10 flex items-center justify-center p-2 relative shadow-inner cursor-pointer group">
-                            <img id="fyp-main-img" src="images/fyp/1.jpg" alt="FYP Project" class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.02] transition-all duration-300 ease-out" loading="lazy" decoding="async">
+                        <div class="w-full flex-1 rounded-2xl overflow-hidden bg-dark-900 border border-white/10 flex items-center justify-center p-2 relative shadow-inner cursor-pointer group" onclick="handleFypClick(event)">
+                            <img id="fyp-main-img" src="images/fyp/1.jpg" alt="FYP Project" class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.01] transition-all duration-300 ease-out" loading="lazy" decoding="async">
+                            <!-- Left/Right Click Hint Overlays -->
+                            <div class="absolute inset-y-0 left-0 w-1/2 flex items-center justify-start pl-4 opacity-0 group-hover:opacity-40 transition-opacity pointer-events-none">
+                                <span class="w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center text-sm font-bold border border-white/20">◀</span>
+                            </div>
+                            <div class="absolute inset-y-0 right-0 w-1/2 flex items-center justify-end pr-4 opacity-0 group-hover:opacity-40 transition-opacity pointer-events-none">
+                                <span class="w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center text-sm font-bold border border-white/20">▶</span>
+                            </div>
                         </div>
 
                         <!-- Bottom Minimalist Thumbnails Navigation Bar (Scrollable for 11 FYP images) -->
@@ -404,6 +411,21 @@
         const sections = ['art-1', 'art-2', 'fyp-project', 'art-3', 'art-4', 'art-5', 'art-6', 'art-7'];
         let currentSectionIdx = 0;
 
+        const fypImages = [
+            'images/fyp/1.jpg',
+            'images/fyp/2.jpg',
+            'images/fyp/3.jpg',
+            'images/fyp/4.jpg',
+            'images/fyp/5.jpg',
+            'images/fyp/ARTBOOK_A4_01-11.jpg',
+            'images/fyp/ARTBOOK_A4_01-12.jpg',
+            'images/fyp/ARTBOOK_A4_01-14.jpg',
+            'images/fyp/ARTBOOK_A4_01-16.jpg',
+            'images/fyp/ARTBOOK_A4_01-21.jpg',
+            'images/fyp/FACAIL-01.jpg'
+        ];
+        let currentFypIdx = 0;
+
         function switchFypImage(imgUrl, thumbBtn) {
             playChimeSound();
             const mainImg = document.getElementById('fyp-main-img');
@@ -414,13 +436,33 @@
                     mainImg.style.opacity = '1';
                 }, 150);
             }
-            document.querySelectorAll('.fyp-thumb').forEach(btn => {
+            const foundIdx = fypImages.indexOf(imgUrl);
+            if (foundIdx !== -1) currentFypIdx = foundIdx;
+
+            const thumbs = document.querySelectorAll('.fyp-thumb');
+            thumbs.forEach((btn, idx) => {
                 btn.classList.remove('border-2', 'border-purple-500', 'opacity-100', 'scale-105');
                 btn.classList.add('border', 'border-white/10', 'opacity-60');
+                if (idx === currentFypIdx) {
+                    btn.classList.remove('border', 'border-white/10', 'opacity-60');
+                    btn.classList.add('border-2', 'border-purple-500', 'opacity-100', 'scale-105');
+                }
             });
-            if (thumbBtn) {
-                thumbBtn.classList.remove('border', 'border-white/10', 'opacity-60');
-                thumbBtn.classList.add('border-2', 'border-purple-500', 'opacity-100', 'scale-105');
+        }
+
+        function navigateFypImage(direction) {
+            currentFypIdx = (currentFypIdx + direction + fypImages.length) % fypImages.length;
+            const thumbs = document.querySelectorAll('.fyp-thumb');
+            switchFypImage(fypImages[currentFypIdx], thumbs[currentFypIdx]);
+        }
+
+        function handleFypClick(event) {
+            const rect = event.currentTarget.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            if (clickX < rect.width / 2) {
+                navigateFypImage(-1); // Left click -> Previous FYP image
+            } else {
+                navigateFypImage(1);  // Right click -> Next FYP image
             }
         }
 
@@ -438,38 +480,46 @@
             scrollToSection(sections[currentSectionIdx]);
         }
 
-        // Global Mouse Wheel Listener: Scroll console screen or Modal images
+        // Global Mouse Wheel Listener: Scroll console screen or FYP images
         let isLooping = false;
-        let modalScrollDebounce;
+        let wheelDebounce;
         if (screenContent) {
             window.addEventListener('wheel', (e) => {
                 const lightboxModal = document.getElementById('lightbox-modal');
-                if (lightboxModal && !lightboxModal.classList.contains('hidden')) {
-                    e.preventDefault();
-                    clearTimeout(modalScrollDebounce);
-                    modalScrollDebounce = setTimeout(() => {
-                        if (e.deltaY > 0) {
-                            navigateModal(1);  // Scroll down in modal -> Next image
-                        } else if (e.deltaY < 0) {
-                            navigateModal(-1); // Scroll up in modal -> Previous image
-                        }
-                    }, 80);
-                    return;
-                }
+                if (lightboxModal && !lightboxModal.classList.contains('hidden')) return;
 
                 e.preventDefault();
                 if (isLooping) return;
+
+                // Handle FYP Section inner multi-image wheel scroll
+                if (sections[currentSectionIdx] === 'fyp-project') {
+                    clearTimeout(wheelDebounce);
+                    wheelDebounce = setTimeout(() => {
+                        if (e.deltaY > 0) {
+                            if (currentFypIdx < fypImages.length - 1) {
+                                navigateFypImage(1); // Next FYP image
+                            } else {
+                                navigateSection(1); // Next main section
+                            }
+                        } else if (e.deltaY < 0) {
+                            if (currentFypIdx > 0) {
+                                navigateFypImage(-1); // Previous FYP image
+                            } else {
+                                navigateSection(-1); // Previous main section
+                            }
+                        }
+                    }, 60);
+                    return;
+                }
 
                 const isAtBottom = screenContent.scrollTop + screenContent.clientHeight >= screenContent.scrollHeight - 60;
                 const isAtTop = screenContent.scrollTop <= 10;
 
                 if (e.deltaY > 0 && isAtBottom) {
-                    // Scroll down at bottom -> Loop back to first section
                     isLooping = true;
                     scrollToSection(sections[0]);
                     setTimeout(() => { isLooping = false; }, 800);
                 } else if (e.deltaY < 0 && isAtTop && currentSectionIdx === 0) {
-                    // Scroll up at top -> Loop to last section
                     isLooping = true;
                     scrollToSection(sections[sections.length - 1]);
                     setTimeout(() => { isLooping = false; }, 800);
