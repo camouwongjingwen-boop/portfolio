@@ -209,8 +209,8 @@
 
                     <!-- FYP Project Viewer Section (1 Single Screen for all 11 FYP images with bottom thumbnail selector) -->
                     <section id="fyp-project" class="snap-start h-full w-full p-2 sm:p-3 flex flex-col justify-between items-center relative">
-                        <div class="w-full flex-1 rounded-2xl overflow-hidden bg-dark-900 border border-white/10 flex items-center justify-center p-2 relative shadow-inner">
-                            <img id="fyp-main-img" src="images/fyp/1.jpg" alt="FYP Project" class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl transition-all duration-300 ease-out" loading="lazy" decoding="async">
+                        <div class="w-full flex-1 rounded-2xl overflow-hidden bg-dark-900 border border-white/10 flex items-center justify-center p-2 relative shadow-inner cursor-pointer group">
+                            <img id="fyp-main-img" src="images/fyp/1.jpg" alt="FYP Project" class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.02] transition-all duration-300 ease-out" loading="lazy" decoding="async">
                         </div>
 
                         <!-- Bottom Minimalist Thumbnails Navigation Bar (Scrollable for 11 FYP images) -->
@@ -487,14 +487,8 @@
         const modalViewFull = document.getElementById('modal-view-full');
         const modalClose = document.getElementById('modal-close');
 
-        function openModal(card) {
+        function openModal(imgUrl, title = 'Artwork Showcase', medium = 'Visual Art', desc = 'Personal Artwork Series', year = '2026') {
             playChimeSound();
-            const imgUrl = card.getAttribute('data-img');
-            const title = card.getAttribute('data-title');
-            const medium = card.getAttribute('data-medium');
-            const desc = card.getAttribute('data-desc');
-            const year = card.getAttribute('data-year');
-
             modalImg.src = imgUrl;
             modalImg.alt = title;
             modalTitle.textContent = title;
@@ -512,7 +506,22 @@
             setTimeout(() => lightboxModal.classList.add('hidden'), 300);
         }
 
-        artCards.forEach(card => card.addEventListener('click', () => openModal(card)));
+        artCards.forEach(card => card.addEventListener('click', () => {
+            const imgUrl = card.getAttribute('data-img');
+            const title = card.getAttribute('data-title') || 'Artwork Showcase';
+            const medium = card.getAttribute('data-medium') || 'Visual Art';
+            const desc = card.getAttribute('data-desc') || 'Personal Artwork Series';
+            const year = card.getAttribute('data-year') || '2026';
+            if (imgUrl) openModal(imgUrl, title, medium, desc, year);
+        }));
+
+        // Allow FYP main image click to open lightbox
+        const fypMainImg = document.getElementById('fyp-main-img');
+        if (fypMainImg) {
+            fypMainImg.addEventListener('click', () => {
+                openModal(fypMainImg.src, 'FYP Project Artwork', 'Concept & Design', 'FYP Series Full Resolution View', '2026');
+            });
+        }
         modalClose.addEventListener('click', closeModal);
         document.getElementById('btn-circle').addEventListener('click', closeModal);
         lightboxModal.addEventListener('click', (e) => { if (e.target === lightboxModal) closeModal(); });
