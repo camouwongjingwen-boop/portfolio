@@ -323,16 +323,34 @@
     </main>
 
     <!-- Lightbox Modal for Artworks -->
-    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden opacity-0 bg-black/90 backdrop-blur-2xl transition-opacity duration-300 flex items-center justify-center p-6">
-        <button id="modal-close" class="absolute top-6 right-6 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors">
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden opacity-0 bg-black/90 backdrop-blur-2xl transition-opacity duration-300 flex items-center justify-center p-4 sm:p-6">
+        <!-- Close Button -->
+        <button id="modal-close" class="absolute top-6 right-6 z-50 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors">
             ✕
         </button>
 
-        <div class="max-w-5xl w-full max-h-[88vh] flex flex-col md:flex-row glass-panel rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-            <div class="md:w-2/3 bg-black flex items-center justify-center p-4">
-                <img id="modal-img" src="" alt="" class="max-h-[75vh] w-auto object-contain rounded-xl">
+        <!-- Previous Button (Left side) -->
+        <button id="modal-prev-btn" onclick="navigateModal(-1)" class="absolute left-4 sm:left-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-purple-600 text-white flex items-center justify-center text-lg font-bold transition-all hover:scale-110 shadow-lg">
+            ◀
+        </button>
+
+        <!-- Next Button (Right side) -->
+        <button id="modal-next-btn" onclick="navigateModal(1)" class="absolute right-4 sm:right-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-purple-600 text-white flex items-center justify-center text-lg font-bold transition-all hover:scale-110 shadow-lg">
+            ▶
+        </button>
+
+        <div class="max-w-5xl w-full max-h-[88vh] flex flex-col md:flex-row glass-panel rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative z-40">
+            <div class="md:w-2/3 bg-black flex items-center justify-center p-4 relative group cursor-pointer" onclick="handleModalImageClick(event)">
+                <img id="modal-img" src="" alt="" class="max-h-[75vh] w-auto object-contain rounded-xl transition-transform duration-300">
+                <!-- Click hint overlays -->
+                <div class="absolute inset-y-0 left-0 w-1/2 flex items-center justify-start pl-4 opacity-0 group-hover:opacity-40 transition-opacity">
+                    <span class="text-3xl text-white font-bold">◀</span>
+                </div>
+                <div class="absolute inset-y-0 right-0 w-1/2 flex items-center justify-end pr-4 opacity-0 group-hover:opacity-40 transition-opacity">
+                    <span class="text-3xl text-white font-bold">▶</span>
+                </div>
             </div>
-            <div class="md:w-1/3 p-8 flex flex-col justify-between bg-dark-900/90 border-t md:border-t-0 md:border-l border-white/10">
+            <div class="md:w-1/3 p-6 sm:p-8 flex flex-col justify-between bg-dark-900/90 border-t md:border-t-0 md:border-l border-white/10">
                 <div>
                     <span id="modal-medium" class="text-xs uppercase tracking-wider text-purple-400 font-semibold block mb-2"></span>
                     <h3 id="modal-title" class="font-heading text-2xl font-bold text-white mb-3"></h3>
@@ -420,12 +438,24 @@
             scrollToSection(sections[currentSectionIdx]);
         }
 
-        // Global Mouse Wheel Listener: Scroll console screen with 100% reliable loop-back
+        // Global Mouse Wheel Listener: Scroll console screen or Modal images
         let isLooping = false;
+        let modalScrollDebounce;
         if (screenContent) {
             window.addEventListener('wheel', (e) => {
                 const lightboxModal = document.getElementById('lightbox-modal');
-                if (lightboxModal && !lightboxModal.classList.contains('hidden')) return;
+                if (lightboxModal && !lightboxModal.classList.contains('hidden')) {
+                    e.preventDefault();
+                    clearTimeout(modalScrollDebounce);
+                    modalScrollDebounce = setTimeout(() => {
+                        if (e.deltaY > 0) {
+                            navigateModal(1);  // Scroll down in modal -> Next image
+                        } else if (e.deltaY < 0) {
+                            navigateModal(-1); // Scroll up in modal -> Previous image
+                        }
+                    }, 80);
+                    return;
+                }
 
                 e.preventDefault();
                 if (isLooping) return;
@@ -487,18 +517,60 @@
         const modalViewFull = document.getElementById('modal-view-full');
         const modalClose = document.getElementById('modal-close');
 
+        const modalGallery = [
+            'images/ARTBOOK-06.png',
+            'images/ARTBOOK-08.png',
+            'images/fyp/1.jpg',
+            'images/fyp/2.jpg',
+            'images/fyp/3.jpg',
+            'images/fyp/4.jpg',
+            'images/fyp/5.jpg',
+            'images/fyp/ARTBOOK_A4_01-11.jpg',
+            'images/fyp/ARTBOOK_A4_01-12.jpg',
+            'images/fyp/ARTBOOK_A4_01-14.jpg',
+            'images/fyp/ARTBOOK_A4_01-16.jpg',
+            'images/fyp/ARTBOOK_A4_01-21.jpg',
+            'images/fyp/FACAIL-01.jpg'
+        ];
+        let currentModalIdx = 0;
+
         function openModal(imgUrl, title = 'Artwork Showcase', medium = 'Visual Art', desc = 'Personal Artwork Series', year = '2026') {
             playChimeSound();
-            modalImg.src = imgUrl;
-            modalImg.alt = title;
-            modalTitle.textContent = title;
-            modalMedium.textContent = medium;
-            modalDesc.textContent = desc;
-            modalYear.textContent = year;
-            modalViewFull.onclick = () => window.open(imgUrl, '_blank');
+            const foundIdx = modalGallery.indexOf(imgUrl);
+            if (foundIdx !== -1) currentModalIdx = foundIdx;
+
+            updateModalDisplay(imgUrl, title, medium, desc, year);
 
             lightboxModal.classList.remove('hidden');
             setTimeout(() => lightboxModal.classList.remove('opacity-0'), 10);
+        }
+
+        function updateModalDisplay(imgUrl, title, medium, desc, year) {
+            const currentImg = imgUrl || modalGallery[currentModalIdx];
+            modalImg.src = currentImg;
+            modalImg.alt = title || 'Artwork Showcase';
+            modalTitle.textContent = title || 'Artwork Showcase';
+            modalMedium.textContent = medium || 'Visual Art';
+            modalDesc.textContent = desc || 'Personal Artwork Series';
+            modalYear.textContent = year || '2026';
+            modalViewFull.onclick = () => window.open(currentImg, '_blank');
+        }
+
+        function navigateModal(direction) {
+            playChimeSound();
+            currentModalIdx = (currentModalIdx + direction + modalGallery.length) % modalGallery.length;
+            const nextImg = modalGallery[currentModalIdx];
+            updateModalDisplay(nextImg);
+        }
+
+        function handleModalImageClick(event) {
+            const rect = event.currentTarget.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            if (clickX < rect.width / 2) {
+                navigateModal(-1); // Left half click -> Previous image
+            } else {
+                navigateModal(1);  // Right half click -> Next image
+            }
         }
 
         function closeModal() {
@@ -522,10 +594,17 @@
                 openModal(fypMainImg.src, 'FYP Project Artwork', 'Concept & Design', 'FYP Series Full Resolution View', '2026');
             });
         }
+
         modalClose.addEventListener('click', closeModal);
         document.getElementById('btn-circle').addEventListener('click', closeModal);
         lightboxModal.addEventListener('click', (e) => { if (e.target === lightboxModal) closeModal(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+        document.addEventListener('keydown', (e) => { 
+            if (lightboxModal && !lightboxModal.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeModal();
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigateModal(1);
+                if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigateModal(-1);
+            }
+        });
     </script>
 </body>
 </html>
