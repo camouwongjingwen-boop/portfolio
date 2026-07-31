@@ -416,8 +416,23 @@
         }
 
         function navigateSection(direction) {
-            currentSectionIdx = Math.max(0, Math.min(sections.length - 1, currentSectionIdx + direction));
+            currentSectionIdx = (currentSectionIdx + direction + sections.length) % sections.length;
             scrollToSection(sections[currentSectionIdx]);
+        }
+
+        // Loop Back to First Section when scrolling to bottom
+        let isLooping = false;
+        if (screenContent) {
+            screenContent.addEventListener('scroll', () => {
+                const isAtBottom = screenContent.scrollTop + screenContent.clientHeight >= screenContent.scrollHeight - 15;
+                if (isAtBottom && !isLooping) {
+                    isLooping = true;
+                    setTimeout(() => {
+                        scrollToSection(sections[0]);
+                        setTimeout(() => { isLooping = false; }, 800);
+                    }, 500);
+                }
+            });
         }
 
         // Category Filter Logic
