@@ -254,35 +254,35 @@
                     <!-- Section 3: YouTube Video Showcase 1 -->
                     <section id="art-3" class="snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative">
                         <div class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
-                            <iframe class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/ypgt60OAXTU?rel=0" title="Wong Jing Wen Portfolio Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe class="w-full h-full rounded-xl" loading="lazy" src="https://www.youtube.com/embed/ypgt60OAXTU?rel=0" title="Wong Jing Wen Portfolio Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </section>
 
                     <!-- Section 4: YouTube Video Showcase 2 -->
                     <section id="art-4" class="snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative">
                         <div class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
-                            <iframe class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/R5igTugjQ0Q?rel=0" title="Wong Jing Wen Portfolio Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe class="w-full h-full rounded-xl" loading="lazy" src="https://www.youtube.com/embed/R5igTugjQ0Q?rel=0" title="Wong Jing Wen Portfolio Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </section>
 
                     <!-- Section 5: YouTube Video Showcase 3 -->
                     <section id="art-5" class="snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative">
                         <div class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
-                            <iframe class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/MQQsv2W0XJ4?rel=0" title="Wong Jing Wen Portfolio Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe class="w-full h-full rounded-xl" loading="lazy" src="https://www.youtube.com/embed/MQQsv2W0XJ4?rel=0" title="Wong Jing Wen Portfolio Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </section>
 
                     <!-- Section 6: YouTube Video Showcase 4 -->
                     <section id="art-6" class="snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative">
                         <div class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
-                            <iframe class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/Jb5ZIKN9-RA?rel=0" title="Wong Jing Wen Portfolio Video 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe class="w-full h-full rounded-xl" loading="lazy" src="https://www.youtube.com/embed/Jb5ZIKN9-RA?rel=0" title="Wong Jing Wen Portfolio Video 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </section>
 
                     <!-- Section 7: YouTube Video Showcase 5 -->
                     <section id="art-7" class="snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative">
                         <div class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
-                            <iframe class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/os34UP-4a64?rel=0" title="Wong Jing Wen Portfolio Video 5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe class="w-full h-full rounded-xl" loading="lazy" src="https://www.youtube.com/embed/os34UP-4a64?rel=0" title="Wong Jing Wen Portfolio Video 5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </section>
 
@@ -420,19 +420,21 @@
             scrollToSection(sections[currentSectionIdx]);
         }
 
-        // Loop Back to First Section when scrolling to bottom
+        // Optimized Loop Back to First Section with Debounce
         let isLooping = false;
+        let scrollTimeout;
         if (screenContent) {
             screenContent.addEventListener('scroll', () => {
-                const isAtBottom = screenContent.scrollTop + screenContent.clientHeight >= screenContent.scrollHeight - 15;
-                if (isAtBottom && !isLooping) {
-                    isLooping = true;
-                    setTimeout(() => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    const isAtBottom = screenContent.scrollTop + screenContent.clientHeight >= screenContent.scrollHeight - 25;
+                    if (isAtBottom && !isLooping) {
+                        isLooping = true;
                         scrollToSection(sections[0]);
-                        setTimeout(() => { isLooping = false; }, 800);
-                    }, 500);
-                }
-            });
+                        setTimeout(() => { isLooping = false; }, 600);
+                    }
+                }, 150);
+            }, { passive: true });
         }
 
         // Category Filter Logic
