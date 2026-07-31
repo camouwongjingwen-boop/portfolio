@@ -96,12 +96,13 @@
         .led-glow-blue {
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.9), 0 0 30px rgba(59, 130, 246, 0.5);
         }
+
+        .bg-radial-vignette {
+            background: radial-gradient(circle at center, rgba(15,23,42,0.3) 0%, rgba(5,5,10,0.85) 90%);
+        }
     </style>
 </head>
 <body class="bg-dark-950 text-zinc-100 font-sans antialiased min-h-screen flex flex-col justify-between relative overflow-x-hidden selection:bg-purple-500 selection:text-white">
-
-    <!-- Ambient Lights Background -->
-    <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[750px] bg-gradient-to-r from-purple-900/20 via-pink-900/15 to-cyan-900/20 rounded-full blur-[160px] pointer-events-none -z-10"></div>
 
     <!-- OUTER SITE MINIMALIST HEADER (Outside the Console) -->
     <header class="w-full max-w-7xl mx-auto px-8 pt-6 pb-2 flex items-center justify-between z-50">
@@ -109,7 +110,7 @@
         <a href="#" class="font-heading font-extrabold text-xl tracking-wider text-white flex items-center gap-2 group">
             <span class="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 group-hover:scale-125 transition-transform"></span>
             <span>JING WEN</span>
-            <span class="text-xs text-zinc-500 font-normal font-sans ml-2">Visual Artist & Developer</span>
+            <span class="text-xs text-zinc-500 font-normal font-sans ml-2">Game Artist</span>
         </a>
 
         <!-- Outer English Navigation -->
@@ -124,6 +125,9 @@
     <main class="w-full flex-1 flex items-center justify-center px-4 py-4 max-w-[1500px] mx-auto">
         
         <div class="relative w-full flex items-center justify-center">
+
+            <!-- Subtle Hardware Ambient Halo Glow (Constrained strictly around the console) -->
+            <div id="ambient-bg" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[105%] h-[115%] rounded-[80px] pointer-events-none z-0 filter blur-[55px] opacity-75 transition-all duration-700 ease-out bg-cover bg-center brightness-125 saturate-150 shadow-[0_0_80px_rgba(0,0,0,0.8)]" style="background-image: url('images/ARTBOOK-06.png');"></div>
 
             <!-- LEFT CONTROLLER HANDLE (Larger Scale) -->
             <div class="controller-handle hidden md:flex flex-col justify-between items-center w-[180px] lg:w-[210px] h-[580px] lg:h-[650px] rounded-l-[60px] p-6 z-20 relative border-r border-slate-700/30">
@@ -167,13 +171,15 @@
 
                 <!-- Minimal Console Screen Status Bar -->
                 <div class="h-10 px-6 bg-dark-900 border-b border-white/10 flex items-center justify-between text-xs text-zinc-400 font-mono z-30 rounded-t-[24px]">
-                    <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse"></span>
-                        <span class="font-heading font-bold text-white tracking-widest text-xs">JING WEN PORTFOLIO</span>
+                    <div class="flex items-center gap-2 overflow-hidden">
+                        <span class="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse shrink-0"></span>
+                        <span class="font-heading font-bold text-white tracking-widest text-xs shrink-0">JING WEN PORTFOLIO</span>
+                        <span class="text-zinc-600 font-sans hidden sm:inline">|</span>
+                        <span id="current-project-title" class="text-purple-400 font-sans text-xs font-semibold tracking-wide truncate max-w-[140px] sm:max-w-[260px] transition-all duration-300">ARTBOOK Vol. 06</span>
                     </div>
                     <div class="flex items-center gap-5 text-xs">
                         <span class="text-emerald-400">📶 ONLINE</span>
-                        <span class="text-zinc-300">🔋 100%</span>
+                        <span id="battery-level" class="text-emerald-400 font-mono font-bold transition-colors">🔋 100%</span>
                         <span id="screen-clock" class="text-white font-bold">22:00</span>
                     </div>
                 </div>
@@ -336,24 +342,24 @@
             ✕
         </button>
 
-        <!-- Previous Button (Left side) -->
-        <button id="modal-prev-btn" onclick="navigateModal(-1)" class="absolute left-4 sm:left-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-purple-600 text-white flex items-center justify-center text-lg font-bold transition-all hover:scale-110 shadow-lg">
+        <!-- FYP Only Previous Button (Left side) -->
+        <button id="modal-prev-btn" onclick="navigateFypModal(-1)" class="hidden absolute left-4 sm:left-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-purple-600 text-white flex items-center justify-center text-lg font-bold transition-all hover:scale-110 shadow-lg">
             ◀
         </button>
 
-        <!-- Next Button (Right side) -->
-        <button id="modal-next-btn" onclick="navigateModal(1)" class="absolute right-4 sm:right-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-purple-600 text-white flex items-center justify-center text-lg font-bold transition-all hover:scale-110 shadow-lg">
+        <!-- FYP Only Next Button (Right side) -->
+        <button id="modal-next-btn" onclick="navigateFypModal(1)" class="hidden absolute right-4 sm:right-8 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-purple-600 text-white flex items-center justify-center text-lg font-bold transition-all hover:scale-110 shadow-lg">
             ▶
         </button>
 
         <div class="max-w-5xl w-full max-h-[88vh] flex flex-col md:flex-row glass-panel rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative z-40">
-            <div class="md:w-2/3 bg-black flex items-center justify-center p-4 relative group cursor-pointer" onclick="handleModalImageClick(event)">
+            <div class="md:w-2/3 bg-black flex items-center justify-center p-4 relative group cursor-pointer" onclick="handleModalClick(event)">
                 <img id="modal-img" src="" alt="" class="max-h-[75vh] w-auto object-contain rounded-xl transition-transform duration-300">
-                <!-- Click hint overlays -->
-                <div class="absolute inset-y-0 left-0 w-1/2 flex items-center justify-start pl-4 opacity-0 group-hover:opacity-40 transition-opacity">
+                <!-- FYP Click Hint Overlays -->
+                <div class="modal-fyp-hint hidden absolute inset-y-0 left-0 w-1/2 flex items-center justify-start pl-4 opacity-0 group-hover:opacity-40 transition-opacity">
                     <span class="text-3xl text-white font-bold">◀</span>
                 </div>
-                <div class="absolute inset-y-0 right-0 w-1/2 flex items-center justify-end pr-4 opacity-0 group-hover:opacity-40 transition-opacity">
+                <div class="modal-fyp-hint hidden absolute inset-y-0 right-0 w-1/2 flex items-center justify-end pr-4 opacity-0 group-hover:opacity-40 transition-opacity">
                     <span class="text-3xl text-white font-bold">▶</span>
                 </div>
             </div>
@@ -426,6 +432,76 @@
         ];
         let currentFypIdx = 0;
 
+        const sectionImageMap = {
+            'art-1': 'images/ARTBOOK-06.png',
+            'art-2': 'images/ARTBOOK-08.png',
+            'fyp-project': 'images/fyp/1.jpg',
+            'art-3': 'https://img.youtube.com/vi/ypgt60OAXTU/maxresdefault.jpg',
+            'art-4': 'https://img.youtube.com/vi/R5igTugjQ0Q/maxresdefault.jpg',
+            'art-5': 'https://img.youtube.com/vi/MQQsv2W0XJ4/maxresdefault.jpg',
+            'art-6': 'https://img.youtube.com/vi/Jb5ZIKN9-RA/maxresdefault.jpg',
+            'art-7': 'https://img.youtube.com/vi/os34UP-4a64/maxresdefault.jpg'
+        };
+
+        const sectionTitleMap = {
+            'art-1': 'ARTBOOK Collection Vol. 06',
+            'art-2': 'ARTBOOK Collection Vol. 08',
+            'fyp-project': 'FYP Project Gallery',
+            'art-3': 'Video Showcase 01',
+            'art-4': 'Video Showcase 02',
+            'art-5': 'Video Showcase 03',
+            'art-6': 'Video Showcase 04',
+            'art-7': 'Video Showcase 05'
+        };
+
+        function updateProjectTitle(title) {
+            const titleEl = document.getElementById('current-project-title');
+            if (titleEl && title) {
+                titleEl.style.opacity = '0';
+                setTimeout(() => {
+                    titleEl.textContent = title;
+                    titleEl.style.opacity = '1';
+                }, 100);
+            }
+        }
+
+        function updateAmbientBackground(imgUrl) {
+            const ambientBg = document.getElementById('ambient-bg');
+            if (ambientBg && imgUrl) {
+                ambientBg.style.backgroundImage = `url('${imgUrl}')`;
+            }
+        }
+
+        // IntersectionObserver for real-time dynamic ambient background & project title changes on scroll
+        if (screenContent) {
+            const observerOptions = {
+                root: screenContent,
+                threshold: 0.5
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const secId = entry.target.id;
+                        currentSectionIdx = sections.indexOf(secId);
+                        
+                        if (secId === 'fyp-project') {
+                            updateAmbientBackground(fypImages[currentFypIdx]);
+                            updateProjectTitle(`FYP Project (${currentFypIdx + 1}/11)`);
+                        } else if (sectionImageMap[secId]) {
+                            updateAmbientBackground(sectionImageMap[secId]);
+                            if (sectionTitleMap[secId]) updateProjectTitle(sectionTitleMap[secId]);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) sectionObserver.observe(el);
+            });
+        }
+
         function switchFypImage(imgUrl, thumbBtn) {
             playChimeSound();
             const mainImg = document.getElementById('fyp-main-img');
@@ -436,8 +512,12 @@
                     mainImg.style.opacity = '1';
                 }, 150);
             }
+            updateAmbientBackground(imgUrl);
             const foundIdx = fypImages.indexOf(imgUrl);
-            if (foundIdx !== -1) currentFypIdx = foundIdx;
+            if (foundIdx !== -1) {
+                currentFypIdx = foundIdx;
+                updateProjectTitle(`FYP Project (${currentFypIdx + 1}/11)`);
+            }
 
             const thumbs = document.querySelectorAll('.fyp-thumb');
             thumbs.forEach((btn, idx) => {
@@ -472,7 +552,44 @@
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });
                 currentSectionIdx = sections.indexOf(id);
+                if (sectionImageMap[id]) {
+                    if (id === 'fyp-project') {
+                        updateAmbientBackground(fypImages[currentFypIdx]);
+                    } else {
+                        updateAmbientBackground(sectionImageMap[id]);
+                    }
+                }
+                setTimeout(updateBatteryLevel, 300);
             }
+        }
+
+        function updateBatteryLevel() {
+            if (!screenContent) return;
+            const maxScroll = screenContent.scrollHeight - screenContent.clientHeight;
+            if (maxScroll <= 0) return;
+
+            const scrollRatio = screenContent.scrollTop / maxScroll;
+            const pct = Math.max(1, Math.min(100, Math.round(100 - (scrollRatio * 99))));
+
+            const batteryEl = document.getElementById('battery-level');
+            if (batteryEl) {
+                let colorClass = 'text-emerald-400';
+                let icon = '🔋';
+                if (pct <= 20) {
+                    colorClass = 'text-red-500 animate-pulse';
+                    icon = '🪫';
+                } else if (pct <= 50) {
+                    colorClass = 'text-amber-400';
+                    icon = '🔋';
+                }
+
+                batteryEl.className = `${colorClass} font-mono font-bold transition-colors`;
+                batteryEl.textContent = `${icon} ${pct}%`;
+            }
+        }
+
+        if (screenContent) {
+            screenContent.addEventListener('scroll', updateBatteryLevel, { passive: true });
         }
 
         function navigateSection(direction) {
@@ -480,37 +597,26 @@
             scrollToSection(sections[currentSectionIdx]);
         }
 
-        // Global Mouse Wheel Listener: Scroll console screen or FYP images
+        // Global Mouse Wheel Listener: Scroll console screen or FYP Modal images
         let isLooping = false;
-        let wheelDebounce;
+        let modalWheelDebounce;
         if (screenContent) {
             window.addEventListener('wheel', (e) => {
                 const lightboxModal = document.getElementById('lightbox-modal');
-                if (lightboxModal && !lightboxModal.classList.contains('hidden')) return;
+                if (lightboxModal && !lightboxModal.classList.contains('hidden')) {
+                    if (isFypModal) {
+                        e.preventDefault();
+                        clearTimeout(modalWheelDebounce);
+                        modalWheelDebounce = setTimeout(() => {
+                            if (e.deltaY > 0) navigateFypModal(1);
+                            else if (e.deltaY < 0) navigateFypModal(-1);
+                        }, 80);
+                    }
+                    return;
+                }
 
                 e.preventDefault();
                 if (isLooping) return;
-
-                // Handle FYP Section inner multi-image wheel scroll
-                if (sections[currentSectionIdx] === 'fyp-project') {
-                    clearTimeout(wheelDebounce);
-                    wheelDebounce = setTimeout(() => {
-                        if (e.deltaY > 0) {
-                            if (currentFypIdx < fypImages.length - 1) {
-                                navigateFypImage(1); // Next FYP image
-                            } else {
-                                navigateSection(1); // Next main section
-                            }
-                        } else if (e.deltaY < 0) {
-                            if (currentFypIdx > 0) {
-                                navigateFypImage(-1); // Previous FYP image
-                            } else {
-                                navigateSection(-1); // Previous main section
-                            }
-                        }
-                    }, 60);
-                    return;
-                }
 
                 const isAtBottom = screenContent.scrollTop + screenContent.clientHeight >= screenContent.scrollHeight - 60;
                 const isAtTop = screenContent.scrollTop <= 10;
@@ -567,59 +673,75 @@
         const modalViewFull = document.getElementById('modal-view-full');
         const modalClose = document.getElementById('modal-close');
 
-        const modalGallery = [
-            'images/ARTBOOK-06.png',
-            'images/ARTBOOK-08.png',
-            'images/fyp/1.jpg',
-            'images/fyp/2.jpg',
-            'images/fyp/3.jpg',
-            'images/fyp/4.jpg',
-            'images/fyp/5.jpg',
-            'images/fyp/ARTBOOK_A4_01-11.jpg',
-            'images/fyp/ARTBOOK_A4_01-12.jpg',
-            'images/fyp/ARTBOOK_A4_01-14.jpg',
-            'images/fyp/ARTBOOK_A4_01-16.jpg',
-            'images/fyp/ARTBOOK_A4_01-21.jpg',
-            'images/fyp/FACAIL-01.jpg'
-        ];
-        let currentModalIdx = 0;
+        let isFypModal = false;
+        let currentFypModalIdx = 0;
 
         function openModal(imgUrl, title = 'Artwork Showcase', medium = 'Visual Art', desc = 'Personal Artwork Series', year = '2026') {
             playChimeSound();
-            const foundIdx = modalGallery.indexOf(imgUrl);
-            if (foundIdx !== -1) currentModalIdx = foundIdx;
+            modalImg.src = imgUrl;
+            modalImg.alt = title;
+            modalTitle.textContent = title;
+            modalMedium.textContent = medium;
+            modalDesc.textContent = desc;
+            modalYear.textContent = year;
+            modalViewFull.onclick = () => window.open(imgUrl, '_blank');
 
-            updateModalDisplay(imgUrl, title, medium, desc, year);
+            // Check if this image belongs to FYP multi-image project
+            const filename = imgUrl.split('/').pop();
+            const foundIdx = fypImages.findIndex(path => path.includes(filename));
+
+            const prevBtn = document.getElementById('modal-prev-btn');
+            const nextBtn = document.getElementById('modal-next-btn');
+            const hints = document.querySelectorAll('.modal-fyp-hint');
+
+            if (foundIdx !== -1) {
+                isFypModal = true;
+                currentFypModalIdx = foundIdx;
+                if (prevBtn) prevBtn.classList.remove('hidden');
+                if (nextBtn) nextBtn.classList.remove('hidden');
+                hints.forEach(el => el.classList.remove('hidden'));
+            } else {
+                isFypModal = false;
+                if (prevBtn) prevBtn.classList.add('hidden');
+                if (nextBtn) nextBtn.classList.add('hidden');
+                hints.forEach(el => el.classList.add('hidden'));
+            }
 
             lightboxModal.classList.remove('hidden');
             setTimeout(() => lightboxModal.classList.remove('opacity-0'), 10);
         }
 
-        function updateModalDisplay(imgUrl, title, medium, desc, year) {
-            const currentImg = imgUrl || modalGallery[currentModalIdx];
-            modalImg.src = currentImg;
-            modalImg.alt = title || 'Artwork Showcase';
-            modalTitle.textContent = title || 'Artwork Showcase';
-            modalMedium.textContent = medium || 'Visual Art';
-            modalDesc.textContent = desc || 'Personal Artwork Series';
-            modalYear.textContent = year || '2026';
-            modalViewFull.onclick = () => window.open(currentImg, '_blank');
-        }
+        function navigateFypModal(direction) {
+            if (!isFypModal) return;
 
-        function navigateModal(direction) {
+            // Exit modal when scrolling/clicking past boundary images
+            if (direction === 1 && currentFypModalIdx >= fypImages.length - 1) {
+                closeModal();
+                return;
+            }
+            if (direction === -1 && currentFypModalIdx <= 0) {
+                closeModal();
+                return;
+            }
+
             playChimeSound();
-            currentModalIdx = (currentModalIdx + direction + modalGallery.length) % modalGallery.length;
-            const nextImg = modalGallery[currentModalIdx];
-            updateModalDisplay(nextImg);
+            currentFypModalIdx += direction;
+            const nextImg = fypImages[currentFypModalIdx];
+            modalImg.src = nextImg;
+            modalViewFull.onclick = () => window.open(nextImg, '_blank');
+
+            // Sync with console screen FYP active thumbnail
+            switchFypImage(nextImg, document.querySelectorAll('.fyp-thumb')[currentFypModalIdx]);
         }
 
-        function handleModalImageClick(event) {
+        function handleModalClick(event) {
+            if (!isFypModal) return;
             const rect = event.currentTarget.getBoundingClientRect();
             const clickX = event.clientX - rect.left;
             if (clickX < rect.width / 2) {
-                navigateModal(-1); // Left half click -> Previous image
+                navigateFypModal(-1); // Left click -> Previous FYP image
             } else {
-                navigateModal(1);  // Right half click -> Next image
+                navigateFypModal(1);  // Right click -> Next FYP image
             }
         }
 
@@ -640,7 +762,7 @@
         // Allow FYP main image click to open lightbox
         const fypMainImg = document.getElementById('fyp-main-img');
         if (fypMainImg) {
-            fypMainImg.addEventListener('click', () => {
+            fypMainImg.addEventListener('click', (e) => {
                 openModal(fypMainImg.src, 'FYP Project Artwork', 'Concept & Design', 'FYP Series Full Resolution View', '2026');
             });
         }
@@ -651,8 +773,10 @@
         document.addEventListener('keydown', (e) => { 
             if (lightboxModal && !lightboxModal.classList.contains('hidden')) {
                 if (e.key === 'Escape') closeModal();
-                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigateModal(1);
-                if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigateModal(-1);
+                if (isFypModal) {
+                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigateFypModal(1);
+                    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigateFypModal(-1);
+                }
             }
         });
     </script>
