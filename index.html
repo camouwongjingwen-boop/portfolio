@@ -420,36 +420,37 @@
             scrollToSection(sections[currentSectionIdx]);
         }
 
-        // Optimized Loop Back to First Section with Debounce
+        // Global Mouse Wheel Listener: Scroll console screen with 100% reliable loop-back
         let isLooping = false;
-        let scrollTimeout;
         if (screenContent) {
-            screenContent.addEventListener('scroll', () => {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    const isAtBottom = screenContent.scrollTop + screenContent.clientHeight >= screenContent.scrollHeight - 25;
-                    if (isAtBottom && !isLooping) {
-                        isLooping = true;
-                        scrollToSection(sections[0]);
-                        setTimeout(() => { isLooping = false; }, 600);
-                    }
-                }, 150);
-            }, { passive: true });
+            window.addEventListener('wheel', (e) => {
+                const lightboxModal = document.getElementById('lightbox-modal');
+                if (lightboxModal && !lightboxModal.classList.contains('hidden')) return;
+
+                e.preventDefault();
+                if (isLooping) return;
+
+                const isAtBottom = screenContent.scrollTop + screenContent.clientHeight >= screenContent.scrollHeight - 60;
+                const isAtTop = screenContent.scrollTop <= 10;
+
+                if (e.deltaY > 0 && isAtBottom) {
+                    // Scroll down at bottom -> Loop back to first section
+                    isLooping = true;
+                    scrollToSection(sections[0]);
+                    setTimeout(() => { isLooping = false; }, 800);
+                } else if (e.deltaY < 0 && isAtTop && currentSectionIdx === 0) {
+                    // Scroll up at top -> Loop to last section
+                    isLooping = true;
+                    scrollToSection(sections[sections.length - 1]);
+                    setTimeout(() => { isLooping = false; }, 800);
+                } else {
+                    screenContent.scrollBy({
+                        top: e.deltaY * 1.1,
+                        behavior: 'smooth'
+                    });
+                }
+            }, { passive: false });
         }
-
-        // Global Mouse Wheel Listener: Scroll console screen no matter where mouse is on the page
-        window.addEventListener('wheel', (e) => {
-            const lightboxModal = document.getElementById('lightbox-modal');
-            if (lightboxModal && !lightboxModal.classList.contains('hidden')) return;
-
-            e.preventDefault();
-            if (screenContent) {
-                screenContent.scrollBy({
-                    top: e.deltaY * 1.1,
-                    behavior: 'smooth'
-                });
-            }
-        }, { passive: false });
 
         // Category Filter Logic
         const filterBtns = document.querySelectorAll('.filter-btn');
