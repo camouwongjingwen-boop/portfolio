@@ -210,13 +210,13 @@
         </a>
 
         <!-- Outer Navigation with English / 中文 Language Toggle -->
-        <nav class="flex items-center gap-6 sm:gap-8 text-xs font-semibold uppercase tracking-widest text-zinc-400">
+        <nav class="flex items-center gap-5 sm:gap-7 text-xs font-semibold uppercase tracking-widest text-zinc-400">
             <a href="#" onclick="scrollToSection('art-1')" data-i18n="nav_home"
                 class="hover:text-white transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[var(--accent-primary)] hover:after:w-full after:transition-all">HOME</a>
-            <a href="#about" onclick="scrollToSection('about')" data-i18n="nav_about"
-                class="hover:text-white transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[var(--accent-primary)] hover:after:w-full after:transition-all">ABOUT</a>
-            <a href="#contact" onclick="scrollToSection('contact')" data-i18n="nav_contact"
+            <a href="javascript:void(0)" onclick="openContactModal()" data-i18n="nav_contact"
                 class="hover:text-white transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[var(--accent-primary)] hover:after:w-full after:transition-all">CONTACT</a>
+            <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer"
+                class="hover:text-white text-blue-400 font-bold transition-colors py-1 relative flex items-center gap-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-blue-400 hover:after:w-full after:transition-all">LINKEDIN ↗</a>
             <a href="https://www.roblox.com/users/1800969039/profile" target="_blank" rel="noopener noreferrer"
                 data-i18n="nav_roblox_profile"
                 class="hover:text-white text-purple-400 font-bold transition-colors py-1 relative flex items-center gap-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[var(--accent-primary)] hover:after:w-full after:transition-all">ROBLOX
@@ -993,6 +993,49 @@
             </button>
         </div>
     </main>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" onclick="closeContactModal()"
+        class="fixed inset-0 z-[70] hidden opacity-0 bg-black/85 backdrop-blur-xl transition-opacity duration-300 flex items-center justify-center p-4">
+        <div class="relative w-full max-w-md bg-dark-900 border border-white/15 rounded-3xl p-6 sm:p-8 shadow-[0_0_60px_rgba(59,130,246,0.3)] text-center space-y-6 cursor-default"
+            onclick="event.stopPropagation();">
+            <!-- Close button -->
+            <button onclick="closeContactModal()"
+                class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-red-600 text-white flex items-center justify-center transition-colors">
+                ✕
+            </button>
+
+            <div class="space-y-2 pt-2">
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-blue-600 via-cyan-400 to-purple-600 p-0.5 shadow-xl flex items-center justify-center text-3xl">
+                    💼
+                </div>
+                <h3 class="font-heading text-xl sm:text-2xl font-extrabold text-white tracking-wide">CONNECT WITH ME</h3>
+                <p class="text-xs sm:text-sm text-zinc-400 font-sans">Jing Wen — Game Artist & Art Lead</p>
+            </div>
+
+            <div class="space-y-3 pt-2">
+                <!-- LinkedIn Direct Link Button -->
+                <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer"
+                    class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-heading font-bold text-xs tracking-wider shadow-lg shadow-blue-600/30 flex items-center justify-between transition-all hover:scale-[1.02] active:scale-95 border border-blue-400/30 group">
+                    <span class="flex items-center gap-3">
+                        <span class="text-base">💼</span>
+                        <span>LINKEDIN PROFILE</span>
+                    </span>
+                    <span class="text-sm group-hover:translate-x-1 transition-transform">↗</span>
+                </a>
+
+                <!-- Roblox Profile Direct Link Button -->
+                <a href="https://www.roblox.com/users/1800969039/profile" target="_blank" rel="noopener noreferrer"
+                    class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-heading font-bold text-xs tracking-wider shadow-lg shadow-purple-600/30 flex items-center justify-between transition-all hover:scale-[1.02] active:scale-95 border border-purple-400/30 group">
+                    <span class="flex items-center gap-3">
+                        <span class="text-base">🎮</span>
+                        <span>ROBLOX PROFILE</span>
+                    </span>
+                    <span class="text-sm group-hover:translate-x-1 transition-transform">↗</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Lightbox Modal for Artworks (True Fullscreen Enlarge View) -->
     <div id="lightbox-modal" onclick="closeModal()"
@@ -2121,6 +2164,24 @@
         function closeModal() {
             lightboxModal.classList.add('opacity-0');
             setTimeout(() => lightboxModal.classList.add('hidden'), 300);
+        }
+
+        function openContactModal() {
+            playChimeSound();
+            const modal = document.getElementById('contact-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            }
+        }
+
+        function closeContactModal() {
+            playChimeSound();
+            const modal = document.getElementById('contact-modal');
+            if (modal) {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
         }
 
         artCards.forEach(card => card.addEventListener('click', () => {
