@@ -757,9 +757,9 @@
 
                             <!-- Game 2: Titan Heroes Battlegrounds -->
                             <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
-                                onclick="openModal('https://tr.rbxcdn.com/180DAY-b32e9c7d38dfdbedbd8aa37b4553d51b/500/280/Image/Jpeg/noFilter', 'Titan Heroes Battlegrounds', 'Roblox Game', 'Participated Roblox Project - Titan Heroes Battlegrounds', '2026')">
+                                onclick="openModal('images/Titan Hero/Screenshot 2026-08-04 221613.png', 'Titan Heroes Battlegrounds', 'Roblox Game', 'Participated Roblox Project - Titan Heroes Battlegrounds', '2026')">
                                 <div class="w-full h-36 sm:h-40 relative overflow-hidden bg-black/60">
-                                    <img src="https://tr.rbxcdn.com/180DAY-b32e9c7d38dfdbedbd8aa37b4553d51b/500/280/Image/Jpeg/noFilter"
+                                    <img src="images/Titan Hero/Screenshot 2026-08-04 221613.png"
                                         alt="Titan Heroes Battlegrounds"
                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                     <div
@@ -1993,6 +1993,11 @@
         let currentMultiModalType = 'fyp';
         let currentFypModalIdx = 0;
 
+        const titanHeroImages = [
+            'images/Titan Hero/Screenshot 2026-08-04 221613.png',
+            'images/Titan Hero/Screenshot 2026-08-02 214957.png'
+        ];
+
         function openModal(imgUrl, title = 'Artwork Showcase', medium = 'Visual Art', desc = 'Personal Artwork Series', year = '2026') {
             playChimeSound();
             modalImg.src = imgUrl;
@@ -2003,7 +2008,7 @@
             modalYear.textContent = year;
             modalViewFull.onclick = () => window.open(imgUrl, '_blank');
 
-            // Robust filename & path matching for FYP, Roblox Monster Rider, and Escape the Momster galleries
+            // Robust filename & path matching for FYP, Roblox Monster Rider, Escape the Momster, and Titan Hero galleries
             const cleanUrl = decodeURIComponent(imgUrl).toLowerCase();
             const fypIdx = fypImages.findIndex(path => {
                 const fn = decodeURIComponent(path).toLowerCase().split('/').pop();
@@ -2014,6 +2019,10 @@
                 return cleanUrl.includes(fn);
             });
             const momsterIdx = momsterImages.findIndex(path => {
+                const fn = decodeURIComponent(path).toLowerCase().split('/').pop();
+                return cleanUrl.includes(fn);
+            });
+            const titanIdx = titanHeroImages.findIndex(path => {
                 const fn = decodeURIComponent(path).toLowerCase().split('/').pop();
                 return cleanUrl.includes(fn);
             });
@@ -2043,6 +2052,13 @@
                 if (prevBtn) prevBtn.classList.remove('hidden');
                 if (nextBtn) nextBtn.classList.remove('hidden');
                 hints.forEach(el => el.classList.remove('hidden'));
+            } else if (titanIdx !== -1) {
+                isFypModal = true;
+                currentMultiModalType = 'titan';
+                currentFypModalIdx = titanIdx;
+                if (prevBtn) prevBtn.classList.remove('hidden');
+                if (nextBtn) nextBtn.classList.remove('hidden');
+                hints.forEach(el => el.classList.remove('hidden'));
             } else {
                 isFypModal = false;
                 currentMultiModalType = null;
@@ -2061,6 +2077,7 @@
             let activeList = fypImages;
             if (currentMultiModalType === 'roblox') activeList = robloxImages;
             else if (currentMultiModalType === 'momster') activeList = momsterImages;
+            else if (currentMultiModalType === 'titan') activeList = titanHeroImages;
 
             // Exit modal when scrolling/clicking past boundary images
             if (direction === 1 && currentFypModalIdx >= activeList.length - 1) {
