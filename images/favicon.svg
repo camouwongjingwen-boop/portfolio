@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="jGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#06b6d4" flood-opacity="0.3" />
+    </filter>
+  </defs>
+  <!-- Rounded squircle bg -->
+  <rect x="24" y="24" width="464" height="464" rx="130" fill="#090a0f" stroke="url(#jGrad)" stroke-width="16" filter="url(#shadow)"/>
+  <!-- Sleek Modern Letter J -->
+  <path d="M296 140h48v180c0 48.6-39.4 88-88 88s-88-39.4-88-88h48c0 22.1 17.9 40 40 40s40-17.9 40-40V140z" fill="url(#jGrad)" />
+  <!-- Small glowing decorative pixel dot in top right -->
+  <rect x="356" y="140" width="16" height="16" rx="4" fill="#a855f7" />
+</svg>
