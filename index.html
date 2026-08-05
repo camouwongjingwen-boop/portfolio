@@ -241,6 +241,24 @@
     <main
         class="w-full flex-1 flex flex-col items-center justify-center px-2 sm:px-4 py-2 sm:py-4 max-w-[1880px] mx-auto">
 
+        <!-- FLOATING PROJECT ROLE HUD BANNER (Outside & Floating Above Machine Console) -->
+        <div id="floating-role-hud"
+            class="w-fit max-w-[95%] sm:max-w-[1150px] mx-auto mb-2 sm:mb-3 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-dark-900/90 backdrop-blur-2xl border border-white/15 shadow-[0_10px_35px_rgba(0,0,0,0.85)] flex flex-wrap items-center justify-center gap-2 z-40 transition-all duration-300">
+            <span class="px-3 py-1 rounded-full bg-red-500/20 border border-red-400/40 text-red-300 font-retro font-bold text-xs uppercase tracking-widest flex items-center gap-1.5 shadow-sm shrink-0" data-i18n="what_i_did">
+                ⚡ WHAT I DID
+            </span>
+            <span class="text-zinc-600 font-mono text-xs hidden sm:inline">|</span>
+
+            <!-- Dynamic Role Chips Container -->
+            <div id="hud-role-tags" class="flex flex-wrap items-center gap-1.5 justify-center">
+                <span class="px-2.5 py-1 rounded-lg bg-red-500/20 border border-red-500/40 text-red-300 text-xs font-bold shadow-sm" data-i18n="mr_role_lead">👑 Lead Art Team</span>
+                <span class="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-zinc-200 text-xs font-medium shadow-sm" data-i18n="mr_role_env">🏞️ Environment 3D Model & Design</span>
+                <span class="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-zinc-200 text-xs font-medium shadow-sm" data-i18n="mr_role_monster">👾 Monster Assets</span>
+                <span class="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-zinc-200 text-xs font-medium shadow-sm" data-i18n="mr_role_vfx">💥 VFX</span>
+                <span class="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-zinc-200 text-xs font-medium shadow-sm" data-i18n="mr_role_anim">🎬 Animation</span>
+            </div>
+        </div>
+
         <div class="relative w-full flex items-center justify-center">
 
             <!-- Subtle Hardware Ambient Halo Glow (Constrained strictly around the console) -->
@@ -310,8 +328,7 @@
                             PORTFOLIO</span>
                         <span class="text-zinc-600 font-sans hidden sm:inline">|</span>
                         <span id="current-project-title"
-                            class="text-cyan-400 font-retro text-[11px] font-semibold tracking-wide truncate max-w-[140px] sm:max-w-[260px] transition-all duration-300">ARTBOOK
-                            Vol. 06</span>
+                            class="text-cyan-400 font-retro text-[11px] font-semibold tracking-wide truncate max-w-[140px] sm:max-w-[260px] transition-all duration-300">Monster Rider Simulator</span>
                     </div>
                     <div class="flex items-center gap-3 sm:gap-4 text-xs">
                         <!-- Console Machine Hardware Theme Color Switcher -->
@@ -341,119 +358,7 @@
                 <div id="screen-content"
                     class="no-scrollbar flex-1 overflow-y-auto scroll-smooth snap-y snap-mandatory relative bg-dark-950 rounded-b-[24px]">
 
-                    <!-- Artwork 1 (Fills 100% Screen Height/Width) -->
-                    <section id="art-1"
-                        class="art-card snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative cursor-pointer group"
-                        data-category="concept" data-title="ARTBOOK Collection Vol. 06"
-                        data-medium="Digital Concept Art" data-year="2026"
-                        data-desc="Personal concept art series exploring lighting, composition, and texture."
-                        data-img="images/ARTBOOK-06.png">
-                        <div
-                            class="w-full h-full rounded-2xl overflow-hidden bg-dark-900 border border-white/10 flex items-center justify-center p-2 relative shadow-inner">
-                            <img src="images/ARTBOOK-06.png" alt="ARTBOOK Vol. 06"
-                                class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.02] transition-transform duration-500 ease-out"
-                                loading="lazy">
-                        </div>
-                    </section>
-
-                    <!-- Artwork 2 -->
-                    <section id="art-2"
-                        class="art-card snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative cursor-pointer group"
-                        data-category="illustration" data-title="ARTBOOK Collection Vol. 08"
-                        data-medium="Visual Illustration" data-year="2026"
-                        data-desc="Personal visual illustration focusing on mood, atmospheric depth, and color palettes."
-                        data-img="images/ARTBOOK-08.png">
-                        <div
-                            class="w-full h-full rounded-2xl overflow-hidden bg-dark-900 border border-white/10 flex items-center justify-center p-2 relative shadow-inner">
-                            <img src="images/ARTBOOK-08.png" alt="ARTBOOK Vol. 08"
-                                class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.02] transition-transform duration-500 ease-out"
-                                loading="lazy">
-                        </div>
-                    </section>
-
-                    <!-- FYP Project Viewer Section (1 Single Screen for all 11 FYP images with bottom thumbnail selector) -->
-                    <section id="fyp-project"
-                        class="snap-start h-full w-full p-2 sm:p-3 flex flex-col justify-between items-center relative">
-                        <div class="w-full flex-1 rounded-2xl overflow-hidden bg-dark-900 border border-white/10 flex items-center justify-center p-2 relative shadow-inner cursor-pointer group"
-                            onclick="handleFypClick(event)">
-                            <img id="fyp-main-img" src="images/fyp/1.jpg" alt="FYP Project"
-                                class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.01] transition-all duration-300 ease-out"
-                                loading="lazy" decoding="async">
-
-                            <!-- Left/Right Click Hint Overlays -->
-                            <div
-                                class="absolute inset-y-0 left-0 w-1/4 flex items-center justify-start pl-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
-                                <span
-                                    class="w-9 h-9 rounded-full bg-purple-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">◀</span>
-                            </div>
-                            <div
-                                class="absolute inset-y-0 right-0 w-1/4 flex items-center justify-end pr-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
-                                <span
-                                    class="w-9 h-9 rounded-full bg-purple-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">▶</span>
-                            </div>
-                        </div>
-
-                        <!-- Bottom Minimalist Thumbnails Navigation Bar (Scrollable for 11 FYP images) -->
-                        <div
-                            class="w-full pt-2 flex items-center justify-start sm:justify-center gap-2 no-scrollbar overflow-x-auto z-30 px-1">
-                            <button onclick="switchFypImage('images/fyp/1.jpg', this)"
-                                class="fyp-thumb active shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border-2 border-purple-500 bg-dark-800 transition-all opacity-100 scale-105">
-                                <img src="images/fyp/1.jpg" alt="FYP 1" class="w-full h-full object-cover"
-                                    loading="lazy" decoding="async">
-                            </button>
-                            <button onclick="switchFypImage('images/fyp/2.jpg', this)"
-                                class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/fyp/2.jpg" alt="FYP 2" class="w-full h-full object-cover"
-                                    loading="lazy" decoding="async">
-                            </button>
-                            <button onclick="switchFypImage('images/fyp/3.jpg', this)"
-                                class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/fyp/3.jpg" alt="FYP 3" class="w-full h-full object-cover"
-                                    loading="lazy" decoding="async">
-                            </button>
-                            <button onclick="switchFypImage('images/fyp/4.jpg', this)"
-                                class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/fyp/4.jpg" alt="FYP 4" class="w-full h-full object-cover"
-                                    loading="lazy" decoding="async">
-                            </button>
-                            <button onclick="switchFypImage('images/fyp/5.jpg', this)"
-                                class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/fyp/5.jpg" alt="FYP 5" class="w-full h-full object-cover"
-                                    loading="lazy" decoding="async">
-                            </button>
-                            <button onclick="switchFypImage('images/fyp/ARTBOOK_A4_01-11.jpg', this)"
-                                class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/fyp/ARTBOOK_A4_01-11.jpg" alt="FYP 6"
-                                    class="w-full h-full object-cover">
-                            </button>
-                            <button onclick="switchFypImage('images/fyp/ARTBOOK_A4_01-12.jpg', this)"
-                                class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/fyp/ARTBOOK_A4_01-12.jpg" alt="FYP 7"
-                                    class="w-full h-full object-cover">
-                            </button>
-                            <button onclick="switchFypImage('images/fyp/ARTBOOK_A4_01-14.jpg', this)"
-                                class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/fyp/ARTBOOK_A4_01-14.jpg" alt="FYP 8"
-                                    class="w-full h-full object-cover">
-                            </button>
-                            <button onclick="switchFypImage('images/fyp/ARTBOOK_A4_01-16.jpg', this)"
-                                class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/fyp/ARTBOOK_A4_01-16.jpg" alt="FYP 9"
-                                    class="w-full h-full object-cover">
-                            </button>
-                            <button onclick="switchFypImage('images/fyp/ARTBOOK_A4_01-21.jpg', this)"
-                                class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/fyp/ARTBOOK_A4_01-21.jpg" alt="FYP 10"
-                                    class="w-full h-full object-cover">
-                            </button>
-                            <button onclick="switchFypImage('images/fyp/FACAIL-01.jpg', this)"
-                                class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/fyp/FACAIL-01.jpg" alt="FYP 11" class="w-full h-full object-cover">
-                            </button>
-                        </div>
-                    </section>
-
-                    <!-- Section: Monster Rider Simulator Roblox Project Showcase -->
+                    <!-- Section 1: Monster Rider Simulator (Page 1) -->
                     <section id="roblox-project"
                         class="snap-start h-full w-full p-2 sm:p-3 flex flex-col justify-between items-center relative">
                         <div class="w-full flex-1 rounded-2xl overflow-hidden bg-dark-900 border border-white/10 flex items-center justify-center p-2 relative shadow-inner cursor-pointer group"
@@ -462,88 +367,51 @@
                                 alt="Monster Rider Simulator"
                                 class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.01] transition-all duration-300 ease-out"
                                 loading="lazy" decoding="async">
-
-                            <!-- Floating Play Button Badge -->
                             <a href="https://www.roblox.com/share?code=243bdbf13fad7f4ca7faee8803a89373&type=ExperienceDetails&stamp=1785675804345"
                                 target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();"
                                 class="absolute top-4 right-4 z-30 flex items-center gap-2 px-4 py-2 rounded-xl font-heading font-bold text-xs text-white bg-gradient-to-r from-red-600 via-purple-600 to-cyan-500 shadow-xl shadow-red-600/30 hover:scale-105 active:scale-95 transition-all border border-white/20">
                                 <span data-i18n="monster_play">▶ PLAY ON ROBLOX</span>
                                 <span class="text-sm">↗</span>
                             </a>
-
-                            <!-- Left/Right Click Hint Overlays -->
-                            <div
-                                class="absolute inset-y-0 left-0 w-1/4 flex items-center justify-start pl-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
-                                <span
-                                    class="w-9 h-9 rounded-full bg-red-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">◀</span>
+                            <div class="absolute inset-y-0 left-0 w-1/4 flex items-center justify-start pl-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
+                                <span class="w-9 h-9 rounded-full bg-red-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">◀</span>
                             </div>
-                            <div
-                                class="absolute inset-y-0 right-0 w-1/4 flex items-center justify-end pr-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
-                                <span
-                                    class="w-9 h-9 rounded-full bg-red-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">▶</span>
+                            <div class="absolute inset-y-0 right-0 w-1/4 flex items-center justify-end pr-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
+                                <span class="w-9 h-9 rounded-full bg-red-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">▶</span>
                             </div>
                         </div>
-
-                        <!-- Bottom Thumbnails Bar (Scrollable for 9 Monster Rider screenshots) -->
-                        <div
-                            class="w-full pt-2 flex items-center justify-start sm:justify-center gap-2 no-scrollbar overflow-x-auto z-30 px-1">
-                            <button onclick="switchRobloxImage('images/Monster rider/w4Thumbnail.png', this)"
-                                class="roblox-thumb active shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border-2 border-red-500 bg-dark-800 transition-all opacity-100 scale-105">
-                                <img src="images/Monster rider/w4Thumbnail.png" alt="Monster Rider Cover"
-                                    class="w-full h-full object-cover">
+                        <div class="w-full pt-2 flex items-center justify-start sm:justify-center gap-2 no-scrollbar overflow-x-auto z-30 px-1">
+                            <button onclick="switchRobloxImage('images/Monster rider/w4Thumbnail.png', this)" class="roblox-thumb active shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border-2 border-red-500 bg-dark-800 transition-all opacity-100 scale-105">
+                                <img src="images/Monster rider/w4Thumbnail.png" alt="Monster Rider Cover" class="w-full h-full object-cover">
                             </button>
-                            <button
-                                onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 211843.png', this)"
-                                class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Monster rider/Screenshot 2026-08-02 211843.png" alt="Monster Rider 1"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 211843.png', this)" class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Monster rider/Screenshot 2026-08-02 211843.png" alt="Monster Rider 1" class="w-full h-full object-cover">
                             </button>
-                            <button
-                                onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 211914.png', this)"
-                                class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Monster rider/Screenshot 2026-08-02 211914.png" alt="Monster Rider 2"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 211914.png', this)" class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Monster rider/Screenshot 2026-08-02 211914.png" alt="Monster Rider 2" class="w-full h-full object-cover">
                             </button>
-                            <button
-                                onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 211943.png', this)"
-                                class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Monster rider/Screenshot 2026-08-02 211943.png" alt="Monster Rider 3"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 211943.png', this)" class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Monster rider/Screenshot 2026-08-02 211943.png" alt="Monster Rider 3" class="w-full h-full object-cover">
                             </button>
-                            <button
-                                onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 212006.png', this)"
-                                class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Monster rider/Screenshot 2026-08-02 212006.png" alt="Monster Rider 4"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 212006.png', this)" class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Monster rider/Screenshot 2026-08-02 212006.png" alt="Monster Rider 4" class="w-full h-full object-cover">
                             </button>
-                            <button
-                                onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 212027.png', this)"
-                                class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Monster rider/Screenshot 2026-08-02 212027.png" alt="Monster Rider 5"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 212027.png', this)" class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Monster rider/Screenshot 2026-08-02 212027.png" alt="Monster Rider 5" class="w-full h-full object-cover">
                             </button>
-                            <button
-                                onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 212555.png', this)"
-                                class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Monster rider/Screenshot 2026-08-02 212555.png" alt="Monster Rider 6"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 212555.png', this)" class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Monster rider/Screenshot 2026-08-02 212555.png" alt="Monster Rider 6" class="w-full h-full object-cover">
                             </button>
-                            <button
-                                onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 212620.png', this)"
-                                class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Monster rider/Screenshot 2026-08-02 212620.png" alt="Monster Rider 7"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 212620.png', this)" class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Monster rider/Screenshot 2026-08-02 212620.png" alt="Monster Rider 7" class="w-full h-full object-cover">
                             </button>
-                            <button
-                                onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 212652.png', this)"
-                                class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Monster rider/Screenshot 2026-08-02 212652.png" alt="Monster Rider 8"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchRobloxImage('images/Monster rider/Screenshot 2026-08-02 212652.png', this)" class="roblox-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Monster rider/Screenshot 2026-08-02 212652.png" alt="Monster Rider 8" class="w-full h-full object-cover">
                             </button>
                         </div>
                     </section>
 
-                    <!-- Section: Escape the Momster Roblox Project Showcase -->
+                    <!-- Section 2: Escape the Momster (Page 2) -->
                     <section id="escape-momster-project"
                         class="snap-start h-full w-full p-2 sm:p-3 flex flex-col justify-between items-center relative">
                         <div class="w-full flex-1 rounded-2xl overflow-hidden bg-dark-900 border border-white/10 flex items-center justify-center p-2 relative shadow-inner cursor-pointer group"
@@ -552,65 +420,147 @@
                                 alt="Escape the Momster"
                                 class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.01] transition-all duration-300 ease-out"
                                 loading="lazy" decoding="async">
-
-                            <!-- Floating Play Button Badge -->
                             <a href="https://www.roblox.com/games/125239152177933/Escape-the-Momster"
                                 target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();"
                                 class="absolute top-4 right-4 z-30 flex items-center gap-2 px-4 py-2 rounded-xl font-heading font-bold text-xs text-white bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 shadow-xl shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all border border-white/20">
                                 <span>▶ PLAY ON ROBLOX</span>
                                 <span class="text-sm">↗</span>
                             </a>
-
-                            <!-- Left/Right Click Hint Overlays -->
-                            <div
-                                class="absolute inset-y-0 left-0 w-1/4 flex items-center justify-start pl-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
-                                <span
-                                    class="w-9 h-9 rounded-full bg-purple-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">◀</span>
+                            <div class="absolute inset-y-0 left-0 w-1/4 flex items-center justify-start pl-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
+                                <span class="w-9 h-9 rounded-full bg-purple-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">◀</span>
                             </div>
-                            <div
-                                class="absolute inset-y-0 right-0 w-1/4 flex items-center justify-end pr-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
-                                <span
-                                    class="w-9 h-9 rounded-full bg-purple-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">▶</span>
+                            <div class="absolute inset-y-0 right-0 w-1/4 flex items-center justify-end pr-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
+                                <span class="w-9 h-9 rounded-full bg-purple-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">▶</span>
                             </div>
                         </div>
-
-                        <!-- Bottom Thumbnails Bar (Scrollable for 6 official Escape the Momster Roblox screenshots) -->
-                        <div
-                            class="w-full pt-2 flex items-center justify-start sm:justify-center gap-2 no-scrollbar overflow-x-auto z-30 px-1">
-                            <button onclick="switchMomsterImage('images/Escape Momster/thumb1.png', this)"
-                                class="momster-thumb active shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border-2 border-purple-500 bg-dark-800 transition-all opacity-100 scale-105">
-                                <img src="images/Escape Momster/thumb1.png" alt="Escape Momster 1"
-                                    class="w-full h-full object-cover">
+                        <div class="w-full pt-2 flex items-center justify-start sm:justify-center gap-2 no-scrollbar overflow-x-auto z-30 px-1">
+                            <button onclick="switchMomsterImage('images/Escape Momster/thumb1.png', this)" class="momster-thumb active shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border-2 border-purple-500 bg-dark-800 transition-all opacity-100 scale-105">
+                                <img src="images/Escape Momster/thumb1.png" alt="Escape Momster 1" class="w-full h-full object-cover">
                             </button>
-                            <button onclick="switchMomsterImage('images/Escape Momster/thumb2.png', this)"
-                                class="momster-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Escape Momster/thumb2.png" alt="Escape Momster 2"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchMomsterImage('images/Escape Momster/thumb2.png', this)" class="momster-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Escape Momster/thumb2.png" alt="Escape Momster 2" class="w-full h-full object-cover">
                             </button>
-                            <button onclick="switchMomsterImage('images/Escape Momster/thumb3.png', this)"
-                                class="momster-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Escape Momster/thumb3.png" alt="Escape Momster 3"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchMomsterImage('images/Escape Momster/thumb3.png', this)" class="momster-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Escape Momster/thumb3.png" alt="Escape Momster 3" class="w-full h-full object-cover">
                             </button>
-                            <button onclick="switchMomsterImage('images/Escape Momster/thumb4.png', this)"
-                                class="momster-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Escape Momster/thumb4.png" alt="Escape Momster 4"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchMomsterImage('images/Escape Momster/thumb4.png', this)" class="momster-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Escape Momster/thumb4.png" alt="Escape Momster 4" class="w-full h-full object-cover">
                             </button>
-                            <button onclick="switchMomsterImage('images/Escape Momster/thumb5.png', this)"
-                                class="momster-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Escape Momster/thumb5.png" alt="Escape Momster 5"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchMomsterImage('images/Escape Momster/thumb5.png', this)" class="momster-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Escape Momster/thumb5.png" alt="Escape Momster 5" class="w-full h-full object-cover">
                             </button>
-                            <button onclick="switchMomsterImage('images/Escape Momster/thumb6.png', this)"
-                                class="momster-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
-                                <img src="images/Escape Momster/thumb6.png" alt="Escape Momster 6"
-                                    class="w-full h-full object-cover">
+                            <button onclick="switchMomsterImage('images/Escape Momster/thumb6.png', this)" class="momster-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/Escape Momster/thumb6.png" alt="Escape Momster 6" class="w-full h-full object-cover">
                             </button>
                         </div>
                     </section>
 
-                    <!-- Section: Jinji's 3D Interactive Portfolio Showcase -->
+                    <!-- Section 3: More Roblox Projects Page 1/2 (Page 3) -->
+                    <section id="roblox-games"
+                        class="snap-start h-full w-full p-2 sm:p-4 flex flex-col justify-between items-center relative overflow-y-auto no-scrollbar">
+                        <div class="w-full flex items-center justify-between pb-2 border-b border-white/10 shrink-0">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                                <h3 data-i18n="roblox_games_header_1" class="font-heading font-extrabold text-sm sm:text-base text-white tracking-wide">
+                                    MORE ROBLOX PARTICIPATED PROJECTS (PAGE 1/2)</h3>
+                            </div>
+                            <span data-i18n="games_count_1" class="text-[10px] font-mono text-zinc-400 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">PAGE 1 OF 2</span>
+                        </div>
+                        <div class="w-full mt-2.5 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-red-950/50 via-dark-900/95 to-purple-950/50 border border-white/15 shadow-xl shrink-0">
+                            <div class="flex items-center justify-between mb-3 pb-2 border-b border-white/10">
+                                <span class="text-xs sm:text-base font-extrabold text-red-400 uppercase tracking-wider flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span> <span data-i18n="my_role_header">MY ROLE & KEY CONTRIBUTIONS</span>
+                                </span>
+                                <span data-i18n="my_role_badge" class="text-xs font-mono font-bold text-zinc-200 bg-red-500/20 px-3 py-1 rounded-full border border-red-500/40">Art Lead & Game Artist</span>
+                            </div>
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+                                <div class="p-3 sm:p-3.5 rounded-xl bg-white/10 border border-white/15 hover:border-red-500/50 transition-all flex flex-col justify-between shadow-md">
+                                    <div class="flex items-center gap-2 mb-1.5"><span class="text-sm sm:text-base">👑</span><h5 data-i18n="pillar1_title" class="text-xs sm:text-base font-extrabold text-white truncate">Art Lead</h5></div>
+                                    <p data-i18n="pillar1_desc" class="text-xs sm:text-sm text-zinc-200 leading-snug font-normal">Delivered milestones on schedule, set art direction & provided constructive feedback.</p>
+                                </div>
+                                <div class="p-3 sm:p-3.5 rounded-xl bg-white/10 border border-white/15 hover:border-red-500/50 transition-all flex flex-col justify-between shadow-md">
+                                    <div class="flex items-center gap-2 mb-1.5"><span class="text-sm sm:text-base">🏞️</span><h5 data-i18n="pillar2_title" class="text-xs sm:text-base font-extrabold text-white truncate">Environment Art</h5></div>
+                                    <p data-i18n="pillar2_desc" class="text-xs sm:text-sm text-zinc-200 leading-snug font-normal">Crafted optimized 3D environment assets & level props tailored for Roblox.</p>
+                                </div>
+                                <div class="p-3 sm:p-3.5 rounded-xl bg-white/10 border border-white/15 hover:border-red-500/50 transition-all flex flex-col justify-between shadow-md">
+                                    <div class="flex items-center gap-2 mb-1.5"><span class="text-sm sm:text-base">💥</span><h5 data-i18n="pillar3_title" class="text-xs sm:text-base font-extrabold text-white truncate">VFX Design</h5></div>
+                                    <p data-i18n="pillar3_desc" class="text-xs sm:text-sm text-zinc-200 leading-snug font-normal">Authored dynamic combat particles, skill effects & environmental visual effects.</p>
+                                </div>
+                                <div class="p-3 sm:p-3.5 rounded-xl bg-white/10 border border-white/15 hover:border-red-500/50 transition-all flex flex-col justify-between shadow-md">
+                                    <div class="flex items-center gap-2 mb-1.5"><span class="text-sm sm:text-base">🎬</span><h5 data-i18n="pillar4_title" class="text-xs sm:text-base font-extrabold text-white truncate">Animations</h5></div>
+                                    <p data-i18n="pillar4_desc" class="text-xs sm:text-sm text-zinc-200 leading-snug font-normal">Created keyframe character, weapon & gameplay ability animations.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 py-3 overflow-y-auto no-scrollbar">
+                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer" onclick="openModal('https://tr.rbxcdn.com/180DAY-ddf820da22e393bc00f416bdf0f51de9/500/280/Image/Jpeg/noFilter', 'Tiny Battlegrounds', 'Roblox Game', 'Participated Roblox Project - Tiny Battlegrounds', '2026')">
+                                <div class="w-full h-40 sm:h-48 relative overflow-hidden bg-black/60">
+                                    <img src="https://tr.rbxcdn.com/180DAY-ddf820da22e393bc00f416bdf0f51de9/500/280/Image/Jpeg/noFilter" alt="Tiny Battlegrounds" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <a href="https://www.roblox.com/games/14526704915/Tiny-Battlegrounds" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20"><span>PLAY</span> ↗</a>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between"><h4 class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">Tiny Battlegrounds</h4></div>
+                            </div>
+                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer" onclick="openModal('images/Titan Hero/Screenshot 2026-08-04 221613.png', 'Titan Heroes Battlegrounds', 'Roblox Game', 'Participated Roblox Project - Titan Heroes Battlegrounds', '2026')">
+                                <div class="w-full h-40 sm:h-48 relative overflow-hidden bg-black/60">
+                                    <img src="images/Titan Hero/Screenshot 2026-08-04 221613.png" alt="Titan Heroes Battlegrounds" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <a href="https://www.roblox.com/games/112674543341852/Titan-Heroes-Battlegrounds" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20"><span>PLAY</span> ↗</a>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between"><h4 class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">Titan Heroes Battlegrounds</h4></div>
+                            </div>
+                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer" onclick="openModal('https://tr.rbxcdn.com/180DAY-8d4f5dc2872221deb82cdb11d6f5e1cc/500/280/Image/Jpeg/noFilter', 'Crystal Garden', 'Roblox Game', 'Participated Roblox Project - Crystal Garden', '2026')">
+                                <div class="w-full h-40 sm:h-48 relative overflow-hidden bg-black/60">
+                                    <img src="https://tr.rbxcdn.com/180DAY-8d4f5dc2872221deb82cdb11d6f5e1cc/500/280/Image/Jpeg/noFilter" alt="Crystal Garden" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <a href="https://www.roblox.com/games/108082129166311/Crystal-Garden" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20"><span>PLAY</span> ↗</a>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between"><h4 class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">Crystal Garden</h4></div>
+                            </div>
+                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer" onclick="openModal('https://tr.rbxcdn.com/180DAY-6afff6893c1e2cb5a6ab4e2ac7e87b3c/500/280/Image/Jpeg/noFilter', '6 GUNS', 'Roblox Game', 'Participated Roblox Project - 6 GUNS', '2026')">
+                                <div class="w-full h-40 sm:h-48 relative overflow-hidden bg-black/60">
+                                    <img src="https://tr.rbxcdn.com/180DAY-6afff6893c1e2cb5a6ab4e2ac7e87b3c/500/280/Image/Jpeg/noFilter" alt="6 GUNS" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <a href="https://www.roblox.com/games/91920408022274/6-GUNS" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20"><span>PLAY</span> ↗</a>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between"><h4 class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">6 GUNS</h4></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 4: More Roblox Projects Page 2/2 (Page 4) -->
+                    <section id="roblox-games-2"
+                        class="snap-start h-full w-full p-2 sm:p-4 flex flex-col justify-between items-center relative overflow-y-auto no-scrollbar">
+                        <div class="w-full flex items-center justify-between pb-2 border-b border-white/10 shrink-0">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                                <h3 data-i18n="roblox_games_header_2" class="font-heading font-extrabold text-sm sm:text-base text-white tracking-wide">
+                                    MORE ROBLOX PARTICIPATED PROJECTS (PAGE 2/2)</h3>
+                            </div>
+                            <span data-i18n="games_count_2" class="text-[10px] font-mono text-zinc-400 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">PAGE 2 OF 2</span>
+                        </div>
+                        <div class="w-full flex-1 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 py-4 overflow-y-auto no-scrollbar items-center">
+                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer" onclick="openModal('https://tr.rbxcdn.com/180DAY-9e25f46ab17c7c74ae8f6b149e171736/500/280/Image/Jpeg/noFilter', 'Sharpshooter League', 'Roblox Game', 'Participated Roblox Project - Sharpshooter League', '2026')">
+                                <div class="w-full h-44 sm:h-52 relative overflow-hidden bg-black/60">
+                                    <img src="https://tr.rbxcdn.com/180DAY-9e25f46ab17c7c74ae8f6b149e171736/500/280/Image/Jpeg/noFilter" alt="Sharpshooter League" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <a href="https://www.roblox.com/games/109987351090800/Sharpshooter-League" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20"><span>PLAY</span> ↗</a>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between"><h4 class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">Sharpshooter League</h4></div>
+                            </div>
+                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer" onclick="openModal('https://tr.rbxcdn.com/180DAY-f8df72b236d8ab4a33907f02f6a987a7/500/280/Image/Jpeg/noFilter', 'Gummy Bear Simulator', 'Roblox Game', 'Participated Roblox Project - Gummy Bear Simulator', '2026')">
+                                <div class="w-full h-44 sm:h-52 relative overflow-hidden bg-black/60">
+                                    <img src="https://tr.rbxcdn.com/180DAY-f8df72b236d8ab4a33907f02f6a987a7/500/280/Image/Jpeg/noFilter" alt="Gummy Bear Simulator" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <a href="https://www.roblox.com/games/108833557791562/Gummy-Bear-Simulator" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20"><span>PLAY</span> ↗</a>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between"><h4 class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">Gummy Bear Simulator</h4></div>
+                            </div>
+                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer" onclick="openModal('https://tr.rbxcdn.com/180DAY-844dac97326bf6fb5d1ab305e5b41a3e/500/280/Image/Jpeg/noFilter', 'Brainrot Fishing', 'Roblox Game', 'Participated Roblox Project - Brainrot Fishing', '2026')">
+                                <div class="w-full h-44 sm:h-52 relative overflow-hidden bg-black/60">
+                                    <img src="https://tr.rbxcdn.com/180DAY-844dac97326bf6fb5d1ab305e5b41a3e/500/280/Image/Jpeg/noFilter" alt="Brainrot Fishing" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <a href="https://www.roblox.com/games/86952385899500/Brainrot-fishing" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20"><span>PLAY</span> ↗</a>
+                                </div>
+                                <div class="p-3.5 flex items-center justify-between"><h4 class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">Brainrot Fishing</h4></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 5: Jinji's 3D Portfolio Place (Page 5) -->
                     <section id="jinji-portfolio-project"
                         class="art-card snap-start h-full w-full p-2 sm:p-3 flex flex-col justify-between items-center relative cursor-pointer group"
                         data-category="roblox" data-title="Jinji's 3D Portfolio Place"
@@ -621,16 +571,12 @@
                             <img src="images/Jinji Portfolio/thumb1.png" alt="Jinji's 3D Portfolio Place"
                                 class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.01] transition-all duration-300 ease-out"
                                 loading="lazy" decoding="async">
-
-                            <!-- Floating Play Button Badge -->
                             <a href="https://www.roblox.com/games/113978096060440/Jinjis-Portfolio"
                                 target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();"
                                 class="absolute top-4 right-4 z-30 flex items-center gap-2 px-4 py-2 rounded-xl font-heading font-bold text-xs text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-xl shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all border border-white/20">
                                 <span>▶ ENTER 3D PORTFOLIO PLACE</span>
                                 <span class="text-sm">↗</span>
                             </a>
-
-                            <!-- Project Title & Details Overlay -->
                             <div class="absolute bottom-4 left-4 z-30 p-3 sm:p-4 rounded-xl bg-black/75 backdrop-blur-md border border-white/15 max-w-[85%]">
                                 <h3 class="font-heading font-extrabold text-base sm:text-lg text-white tracking-wide flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
@@ -643,302 +589,140 @@
                         </div>
                     </section>
 
-                    <!-- Section: Roblox Participated Projects Grid Showcase (6 Games) -->
-                    <section id="roblox-games"
+                    <!-- Section 6: Others Work Gallery (Page 6) -->
+                    <section id="fyp-project"
+                        class="snap-start h-full w-full p-2 sm:p-3 flex flex-col justify-between items-center relative">
+                        <div class="w-full flex-1 rounded-2xl overflow-hidden bg-dark-900 border border-white/10 flex items-center justify-center p-2 relative shadow-inner cursor-pointer group"
+                            onclick="handleFypClick(event)">
+                            <img id="fyp-main-img" src="images/fyp/1.jpg" alt="Others Work Project"
+                                class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.01] transition-all duration-300 ease-out"
+                                loading="lazy" decoding="async">
+                            <div class="absolute inset-y-0 left-0 w-1/4 flex items-center justify-start pl-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
+                                <span class="w-9 h-9 rounded-full bg-purple-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">◀</span>
+                            </div>
+                            <div class="absolute inset-y-0 right-0 w-1/4 flex items-center justify-end pr-4 opacity-0 group-hover:opacity-60 transition-opacity pointer-events-none z-20">
+                                <span class="w-9 h-9 rounded-full bg-purple-600/80 text-white flex items-center justify-center text-sm font-bold border border-white/20 shadow-lg">▶</span>
+                            </div>
+                        </div>
+                        <div class="w-full pt-2 flex items-center justify-start sm:justify-center gap-2 no-scrollbar overflow-x-auto z-30 px-1">
+                            <button onclick="switchFypImage('images/fyp/1.jpg', this)" class="fyp-thumb active shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border-2 border-purple-500 bg-dark-800 transition-all opacity-100 scale-105">
+                                <img src="images/fyp/1.jpg" alt="FYP 1" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="switchFypImage('images/fyp/2.jpg', this)" class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/fyp/2.jpg" alt="FYP 2" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="switchFypImage('images/fyp/3.jpg', this)" class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/fyp/3.jpg" alt="FYP 3" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="switchFypImage('images/fyp/4.jpg', this)" class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/fyp/4.jpg" alt="FYP 4" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="switchFypImage('images/fyp/5.jpg', this)" class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/fyp/5.jpg" alt="FYP 5" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="switchFypImage('images/fyp/ARTBOOK_A4_01-11.jpg', this)" class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/fyp/ARTBOOK_A4_01-11.jpg" alt="FYP 6" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="switchFypImage('images/fyp/ARTBOOK_A4_01-12.jpg', this)" class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/fyp/ARTBOOK_A4_01-12.jpg" alt="FYP 7" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="switchFypImage('images/fyp/ARTBOOK_A4_01-14.jpg', this)" class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/fyp/ARTBOOK_A4_01-14.jpg" alt="FYP 8" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="switchFypImage('images/fyp/ARTBOOK_A4_01-16.jpg', this)" class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/fyp/ARTBOOK_A4_01-16.jpg" alt="FYP 9" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="switchFypImage('images/fyp/ARTBOOK_A4_01-21.jpg', this)" class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/fyp/ARTBOOK_A4_01-21.jpg" alt="FYP 10" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="switchFypImage('images/fyp/FACAIL-01.jpg', this)" class="fyp-thumb shrink-0 w-11 h-8 sm:w-14 sm:h-10 rounded-lg overflow-hidden border border-white/10 bg-dark-800 transition-all opacity-60 hover:opacity-100 hover:border-white/30">
+                                <img src="images/fyp/FACAIL-01.jpg" alt="FYP 11" class="w-full h-full object-cover">
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Section 7: ARTBOOK Collection (Vol. 06 & Vol. 08 Combined Page) -->
+                    <section id="art-1"
                         class="snap-start h-full w-full p-2 sm:p-4 flex flex-col justify-between items-center relative overflow-y-auto no-scrollbar">
                         <!-- Section Header Badge -->
                         <div class="w-full flex items-center justify-between pb-2 border-b border-white/10 shrink-0">
                             <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-                                <h3 data-i18n="roblox_games_header"
-                                    class="font-heading font-extrabold text-sm sm:text-base text-white tracking-wide">
-                                    MORE ROBLOX PARTICIPATED PROJECTS</h3>
+                                <span class="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse"></span>
+                                <h3 class="font-heading font-extrabold text-sm sm:text-base text-white tracking-wide">
+                                    CONCEPT ARTBOOKS (VOL. 06 & VOL. 08)</h3>
                             </div>
-                            <span data-i18n="games_count"
-                                class="text-[10px] font-mono text-zinc-400 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">6
-                                GAMES</span>
+                            <span class="text-[10px] font-mono text-zinc-400 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">2 VOLUMES</span>
                         </div>
 
-                        <!-- Role & Responsibilities Highlights Banner (Large & High Legibility Typography) -->
-                        <div
-                            class="w-full mt-2.5 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-red-950/50 via-dark-900/95 to-purple-950/50 border border-white/15 shadow-xl shrink-0">
-                            <div class="flex items-center justify-between mb-3 pb-2 border-b border-white/10">
-                                <span
-                                    class="text-xs sm:text-base font-extrabold text-red-400 uppercase tracking-wider flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span> <span
-                                        data-i18n="my_role_header">MY ROLE & KEY CONTRIBUTIONS</span>
-                                </span>
-                                <span data-i18n="my_role_badge"
-                                    class="text-xs font-mono font-bold text-zinc-200 bg-red-500/20 px-3 py-1 rounded-full border border-red-500/40">Art
-                                    Lead & Game Artist</span>
-                            </div>
-
-                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
-                                <!-- Pillar 1: Art Leadership -->
-                                <div
-                                    class="p-3 sm:p-3.5 rounded-xl bg-white/10 border border-white/15 hover:border-red-500/50 transition-all flex flex-col justify-between shadow-md">
-                                    <div class="flex items-center gap-2 mb-1.5">
-                                        <span class="text-sm sm:text-base">👑</span>
-                                        <h5 data-i18n="pillar1_title"
-                                            class="text-xs sm:text-base font-extrabold text-white truncate">Art Lead
-                                        </h5>
-                                    </div>
-                                    <p data-i18n="pillar1_desc"
-                                        class="text-xs sm:text-sm text-zinc-200 leading-snug font-normal">Delivered
-                                        milestones on schedule, set art direction & provided constructive feedback.</p>
-                                </div>
-
-                                <!-- Pillar 2: Environment Assets -->
-                                <div
-                                    class="p-3 sm:p-3.5 rounded-xl bg-white/10 border border-white/15 hover:border-red-500/50 transition-all flex flex-col justify-between shadow-md">
-                                    <div class="flex items-center gap-2 mb-1.5">
-                                        <span class="text-sm sm:text-base">🏞️</span>
-                                        <h5 data-i18n="pillar2_title"
-                                            class="text-xs sm:text-base font-extrabold text-white truncate">Environment
-                                            Art</h5>
-                                    </div>
-                                    <p data-i18n="pillar2_desc"
-                                        class="text-xs sm:text-sm text-zinc-200 leading-snug font-normal">Crafted
-                                        optimized 3D environment assets & level props tailored for Roblox.</p>
-                                </div>
-
-                                <!-- Pillar 3: VFX Work -->
-                                <div
-                                    class="p-3 sm:p-3.5 rounded-xl bg-white/10 border border-white/15 hover:border-red-500/50 transition-all flex flex-col justify-between shadow-md">
-                                    <div class="flex items-center gap-2 mb-1.5">
-                                        <span class="text-sm sm:text-base">💥</span>
-                                        <h5 data-i18n="pillar3_title"
-                                            class="text-xs sm:text-base font-extrabold text-white truncate">VFX Design
-                                        </h5>
-                                    </div>
-                                    <p data-i18n="pillar3_desc"
-                                        class="text-xs sm:text-sm text-zinc-200 leading-snug font-normal">Authored
-                                        dynamic combat particles, skill effects & environmental visual effects.</p>
-                                </div>
-
-                                <!-- Pillar 4: Animation Work -->
-                                <div
-                                    class="p-3 sm:p-3.5 rounded-xl bg-white/10 border border-white/15 hover:border-red-500/50 transition-all flex flex-col justify-between shadow-md">
-                                    <div class="flex items-center gap-2 mb-1.5">
-                                        <span class="text-sm sm:text-base">🎬</span>
-                                        <h5 data-i18n="pillar4_title"
-                                            class="text-xs sm:text-base font-extrabold text-white truncate">Animations
-                                        </h5>
-                                    </div>
-                                    <p data-i18n="pillar4_desc"
-                                        class="text-xs sm:text-sm text-zinc-200 leading-snug font-normal">Created
-                                        keyframe character, weapon & gameplay ability animations.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 6 Games Responsive Grid (Clean Card View with Larger Typography & Cover Images) -->
-                        <div
-                            class="w-full flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 py-3 overflow-y-auto no-scrollbar">
-
-                            <!-- Game 1: Tiny Battlegrounds -->
-                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
-                                onclick="openModal('https://tr.rbxcdn.com/180DAY-ddf820da22e393bc00f416bdf0f51de9/500/280/Image/Jpeg/noFilter', 'Tiny Battlegrounds', 'Roblox Game', 'Participated Roblox Project - Tiny Battlegrounds', '2026')">
-                                <div class="w-full h-36 sm:h-40 relative overflow-hidden bg-black/60">
-                                    <img src="https://tr.rbxcdn.com/180DAY-ddf820da22e393bc00f416bdf0f51de9/500/280/Image/Jpeg/noFilter"
-                                        alt="Tiny Battlegrounds"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80">
-                                    </div>
-                                    <a href="https://www.roblox.com/games/14526704915/Tiny-Battlegrounds"
-                                        target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();"
-                                        class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20">
-                                        <span>PLAY</span> ↗
-                                    </a>
-                                </div>
-                                <div class="p-3.5 flex items-center justify-between">
-                                    <h4
-                                        class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">
-                                        Tiny Battlegrounds</h4>
+                        <!-- 2-Column Artbooks Showcase Grid -->
+                        <div class="w-full flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 py-3 items-center">
+                            <!-- Vol. 06 -->
+                            <div class="art-card group relative h-full bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/50 shadow-xl transition-all duration-300 flex items-center justify-center p-2 cursor-pointer"
+                                data-category="concept" data-title="ARTBOOK Collection Vol. 06"
+                                data-medium="Digital Concept Art" data-year="2026"
+                                data-desc="Personal concept art series exploring lighting, composition, and texture."
+                                data-img="images/ARTBOOK-06.png">
+                                <img src="images/ARTBOOK-06.png" alt="ARTBOOK Vol. 06"
+                                    class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+                                    loading="lazy">
+                                <div class="absolute bottom-3 left-3 z-20 px-3 py-1 rounded-lg bg-black/75 backdrop-blur-sm border border-white/10">
+                                    <span class="text-xs font-heading font-bold text-white">ARTBOOK Vol. 06</span>
                                 </div>
                             </div>
 
-                            <!-- Game 2: Titan Heroes Battlegrounds -->
-                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
-                                onclick="openModal('images/Titan Hero/Screenshot 2026-08-04 221613.png', 'Titan Heroes Battlegrounds', 'Roblox Game', 'Participated Roblox Project - Titan Heroes Battlegrounds', '2026')">
-                                <div class="w-full h-36 sm:h-40 relative overflow-hidden bg-black/60">
-                                    <img src="images/Titan Hero/Screenshot 2026-08-04 221613.png"
-                                        alt="Titan Heroes Battlegrounds"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80">
-                                    </div>
-                                    <a href="https://www.roblox.com/games/112674543341852/Titan-Heroes-Battlegrounds"
-                                        target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();"
-                                        class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20">
-                                        <span>PLAY</span> ↗
-                                    </a>
-                                </div>
-                                <div class="p-3.5 flex items-center justify-between">
-                                    <h4
-                                        class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">
-                                        Titan Heroes Battlegrounds</h4>
+                            <!-- Vol. 08 -->
+                            <div class="art-card group relative h-full bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/50 shadow-xl transition-all duration-300 flex items-center justify-center p-2 cursor-pointer"
+                                data-category="illustration" data-title="ARTBOOK Collection Vol. 08"
+                                data-medium="Visual Illustration" data-year="2026"
+                                data-desc="Personal visual illustration focusing on mood, atmospheric depth, and color palettes."
+                                data-img="images/ARTBOOK-08.png">
+                                <img src="images/ARTBOOK-08.png" alt="ARTBOOK Vol. 08"
+                                    class="max-w-full max-h-full w-auto h-auto object-contain rounded-xl group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+                                    loading="lazy">
+                                <div class="absolute bottom-3 left-3 z-20 px-3 py-1 rounded-lg bg-black/75 backdrop-blur-sm border border-white/10">
+                                    <span class="text-xs font-heading font-bold text-white">ARTBOOK Vol. 08</span>
                                 </div>
                             </div>
-
-                            <!-- Game 3: Crystal Garden -->
-                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
-                                onclick="openModal('https://tr.rbxcdn.com/180DAY-8d4f5dc2872221deb82cdb11d6f5e1cc/500/280/Image/Jpeg/noFilter', 'Crystal Garden', 'Roblox Game', 'Participated Roblox Project - Crystal Garden', '2026')">
-                                <div class="w-full h-36 sm:h-40 relative overflow-hidden bg-black/60">
-                                    <img src="https://tr.rbxcdn.com/180DAY-8d4f5dc2872221deb82cdb11d6f5e1cc/500/280/Image/Jpeg/noFilter"
-                                        alt="Crystal Garden"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80">
-                                    </div>
-                                    <a href="https://www.roblox.com/games/108082129166311/Crystal-Garden"
-                                        target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();"
-                                        class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20">
-                                        <span>PLAY</span> ↗
-                                    </a>
-                                </div>
-                                <div class="p-3.5 flex items-center justify-between">
-                                    <h4
-                                        class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">
-                                        Crystal Garden</h4>
-                                </div>
-                            </div>
-
-                            <!-- Game 4: 6 GUNS -->
-                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
-                                onclick="openModal('https://tr.rbxcdn.com/180DAY-6afff6893c1e2cb5a6ab4e2ac7e87b3c/500/280/Image/Jpeg/noFilter', '6 GUNS', 'Roblox Game', 'Participated Roblox Project - 6 GUNS', '2026')">
-                                <div class="w-full h-36 sm:h-40 relative overflow-hidden bg-black/60">
-                                    <img src="https://tr.rbxcdn.com/180DAY-6afff6893c1e2cb5a6ab4e2ac7e87b3c/500/280/Image/Jpeg/noFilter"
-                                        alt="6 GUNS"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80">
-                                    </div>
-                                    <a href="https://www.roblox.com/games/91920408022274/6-GUNS" target="_blank"
-                                        rel="noopener noreferrer" onclick="event.stopPropagation();"
-                                        class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20">
-                                        <span>PLAY</span> ↗
-                                    </a>
-                                </div>
-                                <div class="p-3.5 flex items-center justify-between">
-                                    <h4
-                                        class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">
-                                        6 GUNS</h4>
-                                </div>
-                            </div>
-
-                            <!-- Game 5: Sharpshooter League -->
-                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
-                                onclick="openModal('https://tr.rbxcdn.com/180DAY-9e25f46ab17c7c74ae8f6b149e171736/500/280/Image/Jpeg/noFilter', 'Sharpshooter League', 'Roblox Game', 'Participated Roblox Project - Sharpshooter League', '2026')">
-                                <div class="w-full h-36 sm:h-40 relative overflow-hidden bg-black/60">
-                                    <img src="https://tr.rbxcdn.com/180DAY-9e25f46ab17c7c74ae8f6b149e171736/500/280/Image/Jpeg/noFilter"
-                                        alt="Sharpshooter League"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80">
-                                    </div>
-                                    <a href="https://www.roblox.com/games/109987351090800/Sharpshooter-League"
-                                        target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();"
-                                        class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20">
-                                        <span>PLAY</span> ↗
-                                    </a>
-                                </div>
-                                <div class="p-3.5 flex items-center justify-between">
-                                    <h4
-                                        class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">
-                                        Sharpshooter League</h4>
-                                </div>
-                            </div>
-
-                            <!-- Game 6: Gummy Bear Simulator -->
-                            <div class="art-card group relative bg-dark-900/90 rounded-2xl overflow-hidden border border-white/10 hover:border-red-500/50 shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
-                                onclick="openModal('https://tr.rbxcdn.com/180DAY-f8df72b236d8ab4a33907f02f6a987a7/500/280/Image/Jpeg/noFilter', 'Gummy Bear Simulator', 'Roblox Game', 'Participated Roblox Project - Gummy Bear Simulator', '2026')">
-                                <div class="w-full h-36 sm:h-40 relative overflow-hidden bg-black/60">
-                                    <img src="https://tr.rbxcdn.com/180DAY-f8df72b236d8ab4a33907f02f6a987a7/500/280/Image/Jpeg/noFilter"
-                                        alt="Gummy Bear Simulator"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80">
-                                    </div>
-                                    <a href="https://www.roblox.com/games/108833557791562/Gummy-Bear-Simulator"
-                                        target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();"
-                                        class="absolute top-3 right-3 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-heading font-extrabold text-xs shadow-xl flex items-center gap-1 transition-all hover:scale-105 border border-white/20 z-20">
-                                        <span>PLAY</span> ↗
-                                    </a>
-                                </div>
-                                <div class="p-3.5 flex items-center justify-between">
-                                    <h4
-                                        class="font-heading font-extrabold text-sm sm:text-base text-white group-hover:text-red-400 transition-colors truncate">
-                                        Gummy Bear Simulator</h4>
-                                </div>
-                            </div>
-
                         </div>
                     </section>
 
-                    <!-- Section 3: YouTube Video Showcase 1 -->
+                    <!-- Section 9: YouTube Video Showcase 1 (Page 9) -->
                     <section id="art-3"
                         class="snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative">
-                        <div
-                            class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
-                            <iframe class="w-full h-full rounded-xl" loading="lazy"
-                                src="https://www.youtube.com/embed/ypgt60OAXTU?rel=0"
-                                title="Wong Jing Wen Portfolio Video 1" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
+                        <div class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
+                            <iframe class="w-full h-full rounded-xl" loading="lazy" src="https://www.youtube.com/embed/ypgt60OAXTU?rel=0" title="Wong Jing Wen Portfolio Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </section>
 
-                    <!-- Section 4: YouTube Video Showcase 2 -->
+                    <!-- Section 10: YouTube Video Showcase 2 (Page 10) -->
                     <section id="art-4"
                         class="snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative">
-                        <div
-                            class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
-                            <iframe class="w-full h-full rounded-xl" loading="lazy"
-                                src="https://www.youtube.com/embed/R5igTugjQ0Q?rel=0"
-                                title="Wong Jing Wen Portfolio Video 2" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
+                        <div class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
+                            <iframe class="w-full h-full rounded-xl" loading="lazy" src="https://www.youtube.com/embed/R5igTugjQ0Q?rel=0" title="Wong Jing Wen Portfolio Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </section>
 
-                    <!-- Section 5: YouTube Video Showcase 3 -->
+                    <!-- Section 11: YouTube Video Showcase 3 (Page 11) -->
                     <section id="art-5"
                         class="snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative">
-                        <div
-                            class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
-                            <iframe class="w-full h-full rounded-xl" loading="lazy"
-                                src="https://www.youtube.com/embed/MQQsv2W0XJ4?rel=0"
-                                title="Wong Jing Wen Portfolio Video 3" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
+                        <div class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
+                            <iframe class="w-full h-full rounded-xl" loading="lazy" src="https://www.youtube.com/embed/MQQsv2W0XJ4?rel=0" title="Wong Jing Wen Portfolio Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </section>
 
-                    <!-- Section 6: YouTube Video Showcase 4 -->
+                    <!-- Section 12: YouTube Video Showcase 4 (Page 12) -->
                     <section id="art-6"
                         class="snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative">
-                        <div
-                            class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
-                            <iframe class="w-full h-full rounded-xl" loading="lazy"
-                                src="https://www.youtube.com/embed/Jb5ZIKN9-RA?rel=0"
-                                title="Wong Jing Wen Portfolio Video 4" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
+                        <div class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
+                            <iframe class="w-full h-full rounded-xl" loading="lazy" src="https://www.youtube.com/embed/Jb5ZIKN9-RA?rel=0" title="Wong Jing Wen Portfolio Video 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </section>
 
-                    <!-- Section 7: YouTube Video Showcase 5 -->
+                    <!-- Section 13: YouTube Video Showcase 5 (Page 13) -->
                     <section id="art-7"
                         class="snap-start h-full w-full p-2 sm:p-3 flex items-center justify-center relative">
-                        <div
-                            class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
-                            <iframe class="w-full h-full rounded-xl" loading="lazy"
-                                src="https://www.youtube.com/embed/os34UP-4a64?rel=0"
-                                title="Wong Jing Wen Portfolio Video 5" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe>
+                        <div class="w-full h-full rounded-2xl overflow-hidden bg-black border border-white/10 flex items-center justify-center relative shadow-2xl">
+                            <iframe class="w-full h-full rounded-xl" loading="lazy" src="https://www.youtube.com/embed/os34UP-4a64?rel=0" title="Wong Jing Wen Portfolio Video 5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </section>
 
@@ -1014,12 +798,12 @@
                     👋
                 </div>
                 <h3 class="font-heading text-3xl sm:text-4xl font-extrabold text-white tracking-wide" data-i18n="about_title">ABOUT ME</h3>
-                <p class="text-base sm:text-lg text-zinc-400 font-sans" data-i18n="about_subtitle">Jing Wen — Game Artist & Art Lead</p>
+                <p class="text-base sm:text-lg text-zinc-400 font-sans" data-i18n="about_subtitle">Jing Wen — Game Artist & Art Lead (5+ Years Experience)</p>
             </div>
 
             <!-- Bio Text -->
             <p class="text-zinc-300 text-base sm:text-lg leading-relaxed font-sans text-left bg-white/5 border border-white/10 rounded-2xl p-6" data-i18n="about_bio">
-                Game Artist & Art Lead specializing in 3D asset modeling, texturing, animation, and VFX. Experienced in leading artist teams, collaborating with developers, and delivering optimized art assets.
+                Game Artist & Art Lead with 5+ years of experience specializing in 3D asset modeling, texturing, animation, VFX, and Roblox UGC. Experienced in leading artist teams, collaborating with developers, and delivering optimized art assets.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-8 pt-2">
@@ -1030,6 +814,7 @@
                         <li>3D Asset Modeling & Texturing</li>
                         <li>Character & Ability Animations</li>
                         <li>Game Visual Effects (VFX)</li>
+                        <li>Roblox UGC Design & Creation</li>
                         <li>Team Leading & Art Delivery</li>
                     </ul>
                 </div>
@@ -1213,17 +998,17 @@
             <div class="hidden lg:flex items-center gap-2 bg-white/5 p-1 rounded-xl border border-white/10">
                 <button onclick="filterOsCategory('all')" data-i18n="os_tab_all"
                     class="os-tab active px-3.5 py-1.5 rounded-lg text-xs font-bold text-white bg-purple-600 transition-all">ALL</button>
-                <button onclick="filterOsCategory('artbook')" data-i18n="os_tab_artbook"
-                    class="os-tab px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-400 hover:text-white transition-all">ARTBOOKS</button>
-                <button onclick="filterOsCategory('fyp')" data-i18n="os_tab_fyp"
-                    class="os-tab px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-400 hover:text-white transition-all">FYP
-                    GALLERY</button>
                 <button onclick="filterOsCategory('monster')" data-i18n="os_tab_monster"
                     class="os-tab px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-400 hover:text-white transition-all">FEATURED
                     GAMES</button>
                 <button onclick="filterOsCategory('roblox')" data-i18n="os_tab_roblox"
                     class="os-tab px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-400 hover:text-white transition-all">ROBLOX
                     GAMES</button>
+                <button onclick="filterOsCategory('fyp')" data-i18n="os_tab_fyp"
+                    class="os-tab px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-400 hover:text-white transition-all">OTHERS
+                    WORK</button>
+                <button onclick="filterOsCategory('artbook')" data-i18n="os_tab_artbook"
+                    class="os-tab px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-400 hover:text-white transition-all">ARTBOOKS</button>
                 <button onclick="filterOsCategory('videos')" data-i18n="os_tab_videos"
                     class="os-tab px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-400 hover:text-white transition-all">VIDEOS</button>
             </div>
@@ -1231,7 +1016,7 @@
             <div class="flex items-center gap-3">
                 <button onclick="closeOsMode()"
                     class="px-4 py-2 rounded-xl bg-red-600/90 hover:bg-red-500 text-white font-heading font-bold text-xs shadow-lg flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 border border-white/20">
-                    <span data-i18n="exit_os_mode">✕ EXIT OS MODE</span>
+                    <span data-i18n="exit_os_mode">✕ EXIT</span>
                 </button>
             </div>
         </header>
@@ -1240,108 +1025,7 @@
         <main id="os-scroll-container"
             class="w-full flex-1 min-h-0 overflow-y-auto no-scrollbar p-4 sm:p-8 space-y-12 max-w-[1600px] mx-auto">
 
-            <!-- Category 1: FYP Graduation Project Master Card -->
-            <section class="os-cat-section space-y-6" data-cat="fyp">
-                <div class="flex items-center justify-between border-b border-white/10 pb-3">
-                    <h3
-                        class="font-heading font-extrabold text-base sm:text-lg text-cyan-400 tracking-wider flex items-center gap-2">
-                        <span>🎓</span> <span data-i18n="os_fyp_sec_title">GRADUATION PROJECT ALBUM</span>
-                    </h3>
-                    <span data-i18n="os_fyp_album_badge" class="text-xs font-mono text-zinc-400">1 MASTER ALBUM (11
-                        PAGES)</span>
-                </div>
-
-                <!-- FYP Interactive Card with Left/Right Arrows directly inside OS Mode -->
-                <div
-                    class="group relative bg-dark-900/90 rounded-3xl overflow-hidden border border-white/15 hover:border-cyan-500/60 shadow-2xl transition-all duration-300 max-w-3xl mx-auto">
-                    <div class="w-full aspect-[16/10] relative overflow-hidden bg-black/80 flex items-center justify-center cursor-pointer"
-                        onclick="openModal(fypImages[osFypIdx], `FYP Graduation Project (Page ${osFypIdx + 1}/11)`, 'Graduation Project', 'Concept Art Showcase', '2026')">
-                        <img id="os-fyp-img" src="images/fyp/1.jpg" alt="FYP Graduation Project"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent pointer-events-none">
-                        </div>
-
-                        <!-- Left Arrow Button -->
-                        <button onclick="event.stopPropagation(); switchOsFyp(-1);"
-                            class="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/70 hover:bg-cyan-600 text-white font-bold flex items-center justify-center text-lg shadow-xl border border-white/20 hover:scale-110 active:scale-95 transition-all">
-                            ◀
-                        </button>
-                        <!-- Right Arrow Button -->
-                        <button onclick="event.stopPropagation(); switchOsFyp(1);"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/70 hover:bg-cyan-600 text-white font-bold flex items-center justify-center text-lg shadow-xl border border-white/20 hover:scale-110 active:scale-95 transition-all">
-                            ▶
-                        </button>
-
-                        <span id="os-fyp-badge"
-                            class="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-mono font-bold text-xs shadow-lg backdrop-blur-md pointer-events-none">
-                            📚 PAGE 1 OF 11
-                        </span>
-
-                        <div
-                            class="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none">
-                            <div>
-                                <h4 data-i18n="os_fyp_card_title"
-                                    class="font-heading font-extrabold text-xl text-white group-hover:text-cyan-400 transition-colors">
-                                    FYP Graduation Project Gallery</h4>
-                                <p id="os-fyp-counter" class="text-xs text-cyan-300 mt-1 font-semibold">Page 1 of 11 —
-                                    Click image to zoom</p>
-                            </div>
-                            <span
-                                class="px-3.5 py-1.5 rounded-xl bg-white/10 text-zinc-300 font-mono font-bold text-xs shadow border border-white/15">11
-                                PAGES</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Category 2: Artbooks -->
-            <section class="os-cat-section space-y-6" data-cat="artbook">
-                <div class="flex items-center justify-between border-b border-white/10 pb-3">
-                    <h3
-                        class="font-heading font-extrabold text-base sm:text-lg text-purple-400 tracking-wider flex items-center gap-2">
-                        <span>🎨</span> <span data-i18n="os_artbook_sec_title">CONCEPT ARTBOOKS</span>
-                    </h3>
-                    <span data-i18n="os_artbook_volumes" class="text-xs font-mono text-zinc-400">2 VOLUMES</span>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div class="group relative bg-dark-900/90 rounded-3xl overflow-hidden border border-white/15 hover:border-purple-500/60 shadow-2xl transition-all duration-300 cursor-pointer"
-                        onclick="openModal('images/ARTBOOK-06.png', 'ARTBOOK Collection Vol. 06', 'Digital Concept Art', 'Collection Vol. 06 Showcase', '2026')">
-                        <div
-                            class="w-full aspect-[16/10] overflow-hidden bg-black/80 flex items-center justify-center p-2 relative">
-                            <img src="images/ARTBOOK-06.png" alt="ARTBOOK Vol 06"
-                                class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <div class="p-4 flex items-center justify-between bg-dark-900 border-t border-white/5">
-                            <h4 data-i18n="os_artbook6_title"
-                                class="font-heading font-extrabold text-base text-white group-hover:text-purple-400 transition-colors">
-                                ARTBOOK Collection Vol. 06</h4>
-                            <span data-i18n="os_enlarge"
-                                class="text-xs text-purple-400 font-bold border border-purple-500/30 px-3 py-1.5 rounded-xl bg-purple-500/10">ENLARGE
-                                ↗</span>
-                        </div>
-                    </div>
-
-                    <div class="group relative bg-dark-900/90 rounded-3xl overflow-hidden border border-white/15 hover:border-purple-500/60 shadow-2xl transition-all duration-300 cursor-pointer"
-                        onclick="openModal('images/ARTBOOK-08.png', 'ARTBOOK Collection Vol. 08', 'Digital Concept Art', 'Collection Vol. 08 Showcase', '2026')">
-                        <div
-                            class="w-full aspect-[16/10] overflow-hidden bg-black/80 flex items-center justify-center p-2 relative">
-                            <img src="images/ARTBOOK-08.png" alt="ARTBOOK Vol 08"
-                                class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <div class="p-4 flex items-center justify-between bg-dark-900 border-t border-white/5">
-                            <h4 data-i18n="os_artbook8_title"
-                                class="font-heading font-extrabold text-base text-white group-hover:text-purple-400 transition-colors">
-                                ARTBOOK Collection Vol. 08</h4>
-                            <span data-i18n="os_enlarge"
-                                class="text-xs text-purple-400 font-bold border border-purple-500/30 px-3 py-1.5 rounded-xl bg-purple-500/10">ENLARGE
-                                ↗</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Category 3: Monster Rider Simulator -->
+            <!-- Category 1: Monster Rider Simulator -->
             <section class="os-cat-section space-y-6" data-cat="monster">
                 <div class="flex items-center justify-between border-b border-white/10 pb-3">
                     <h3
@@ -1384,10 +1068,22 @@
                         <div
                             class="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none">
                             <div>
-                                <h4 data-i18n="os_monster_card_title"
-                                    class="font-heading font-extrabold text-xl text-white group-hover:text-red-400 transition-colors">
-                                    Monster Rider Simulator</h4>
-                                <p id="os-roblox-counter" class="text-xs text-red-300 mt-1 font-semibold">Screenshot 1
+                                <div class="flex items-center gap-2.5">
+                                    <h4 data-i18n="os_monster_card_title"
+                                        class="font-heading font-extrabold text-xl text-white group-hover:text-red-400 transition-colors">
+                                        Monster Rider Simulator</h4>
+                                    <span class="text-[9px] font-retro font-bold text-red-400 uppercase tracking-widest bg-red-500/15 px-2 py-0.5 rounded-full border border-red-500/30 shrink-0" data-i18n="what_i_did">
+                                        ⚡ WHAT I DID
+                                    </span>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5 mt-1.5 pointer-events-auto">
+                                    <span class="px-2 py-0.5 rounded-md bg-red-500/20 border border-red-500/40 text-red-300 text-[10px] font-bold" data-i18n="mr_role_lead">👑 Lead Art Team</span>
+                                    <span class="px-2 py-0.5 rounded-md bg-white/10 border border-white/15 text-zinc-200 text-[10px] font-medium" data-i18n="mr_role_env">🏞️ Environment 3D Model & Design</span>
+                                    <span class="px-2 py-0.5 rounded-md bg-white/10 border border-white/15 text-zinc-200 text-[10px] font-medium" data-i18n="mr_role_monster">👾 Monster Assets</span>
+                                    <span class="px-2 py-0.5 rounded-md bg-white/10 border border-white/15 text-zinc-200 text-[10px] font-medium" data-i18n="mr_role_vfx">💥 VFX</span>
+                                    <span class="px-2 py-0.5 rounded-md bg-white/10 border border-white/15 text-zinc-200 text-[10px] font-medium" data-i18n="mr_role_anim">🎬 Animation</span>
+                                </div>
+                                <p id="os-roblox-counter" class="text-xs text-red-300 mt-1.5 font-semibold">Screenshot 1
                                     of 9 — Click image to zoom</p>
                             </div>
                             <a href="https://www.roblox.com/share?code=243bdbf13fad7f4ca7faee8803a89373&type=ExperienceDetails&stamp=1785675804345"
@@ -1400,7 +1096,7 @@
                 </div>
             </section>
 
-            <!-- Category 3.5: Escape the Momster -->
+            <!-- Category 1.5: Escape the Momster -->
             <section class="os-cat-section space-y-6" data-cat="monster">
                 <div class="flex items-center justify-between border-b border-white/10 pb-3">
                     <h3
@@ -1459,14 +1155,14 @@
                 </div>
             </section>
 
-            <!-- Category 4: More Roblox Games -->
+            <!-- Category 2: More Roblox Games -->
             <section class="os-cat-section space-y-6" data-cat="roblox">
                 <div class="flex items-center justify-between border-b border-white/10 pb-3">
                     <h3 data-i18n="roblox_games_header"
                         class="font-heading font-extrabold text-base sm:text-lg text-red-400 tracking-wider flex items-center gap-2">
                         <span>🎮</span> MORE ROBLOX PARTICIPATED PROJECTS
                     </h3>
-                    <span data-i18n="games_count" class="text-xs font-mono text-zinc-400">6 GAMES</span>
+                    <span data-i18n="games_count" class="text-xs font-mono text-zinc-400">7 GAMES</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="group relative bg-dark-900/90 rounded-3xl overflow-hidden border border-white/15 hover:border-red-500/60 shadow-xl cursor-pointer transition-all duration-300"
@@ -1571,6 +1267,124 @@
                                 Gummy Bear Simulator</h4>
                         </div>
                     </div>
+                    <div class="group relative bg-dark-900/90 rounded-3xl overflow-hidden border border-white/15 hover:border-red-500/60 shadow-xl cursor-pointer transition-all duration-300"
+                        onclick="openModal('https://tr.rbxcdn.com/180DAY-844dac97326bf6fb5d1ab305e5b41a3e/500/280/Image/Jpeg/noFilter', 'Brainrot Fishing', 'Roblox Game', 'Brainrot Fishing', '2026')">
+                        <div class="w-full aspect-[16/10] overflow-hidden relative bg-black/80">
+                            <img src="https://tr.rbxcdn.com/180DAY-844dac97326bf6fb5d1ab305e5b41a3e/500/280/Image/Jpeg/noFilter"
+                                alt="Brainrot Fishing"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <a href="https://www.roblox.com/games/86952385899500/Brainrot-fishing" target="_blank"
+                                onclick="event.stopPropagation();" data-i18n="play_btn"
+                                class="absolute top-3 right-3 px-3.5 py-1.5 bg-red-600 hover:bg-red-500 text-white font-heading font-bold text-xs rounded-xl shadow-lg border border-white/20">PLAY
+                                ↗</a>
+                        </div>
+                        <div class="p-4 flex justify-between items-center bg-dark-900">
+                            <h4
+                                class="font-heading font-extrabold text-base text-white group-hover:text-red-400 transition-colors">
+                                Brainrot Fishing</h4>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Category 3: Others Work Gallery Master Card -->
+            <section class="os-cat-section space-y-6" data-cat="fyp">
+                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                    <h3
+                        class="font-heading font-extrabold text-base sm:text-lg text-cyan-400 tracking-wider flex items-center gap-2">
+                        <span>🎨</span> <span data-i18n="os_fyp_sec_title">OTHERS WORK GALLERY</span>
+                    </h3>
+                    <span data-i18n="os_fyp_album_badge" class="text-xs font-mono text-zinc-400">1 MASTER ALBUM (11
+                        PAGES)</span>
+                </div>
+
+                <!-- FYP Interactive Card with Left/Right Arrows directly inside OS Mode -->
+                <div
+                    class="group relative bg-dark-900/90 rounded-3xl overflow-hidden border border-white/15 hover:border-cyan-500/60 shadow-2xl transition-all duration-300 max-w-3xl mx-auto">
+                    <div class="w-full aspect-[16/10] relative overflow-hidden bg-black/80 flex items-center justify-center cursor-pointer"
+                        onclick="openModal(fypImages[osFypIdx], `Others Work (Page ${osFypIdx + 1}/11)`, 'Others Work', 'Concept Art Showcase', '2026')">
+                        <img id="os-fyp-img" src="images/fyp/1.jpg" alt="Others Work Gallery"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent pointer-events-none">
+                        </div>
+
+                        <!-- Left Arrow Button -->
+                        <button onclick="event.stopPropagation(); switchOsFyp(-1);"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/70 hover:bg-cyan-600 text-white font-bold flex items-center justify-center text-lg shadow-xl border border-white/20 hover:scale-110 active:scale-95 transition-all">
+                            ◀
+                        </button>
+                        <!-- Right Arrow Button -->
+                        <button onclick="event.stopPropagation(); switchOsFyp(1);"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/70 hover:bg-cyan-600 text-white font-bold flex items-center justify-center text-lg shadow-xl border border-white/20 hover:scale-110 active:scale-95 transition-all">
+                            ▶
+                        </button>
+
+                        <span id="os-fyp-badge"
+                            class="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-mono font-bold text-xs shadow-lg backdrop-blur-md pointer-events-none">
+                            📚 PAGE 1 OF 11
+                        </span>
+
+                        <div
+                            class="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none">
+                            <div>
+                                <h4 data-i18n="os_fyp_card_title"
+                                    class="font-heading font-extrabold text-xl text-white group-hover:text-cyan-400 transition-colors">
+                                    Others Work Gallery</h4>
+                                <p id="os-fyp-counter" class="text-xs text-cyan-300 mt-1 font-semibold">Page 1 of 11 —
+                                    Click image to zoom</p>
+                            </div>
+                            <span
+                                class="px-3.5 py-1.5 rounded-xl bg-white/10 text-zinc-300 font-mono font-bold text-xs shadow border border-white/15">11
+                                PAGES</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Category 4: Artbooks -->
+            <section class="os-cat-section space-y-6" data-cat="artbook">
+                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                    <h3
+                        class="font-heading font-extrabold text-base sm:text-lg text-purple-400 tracking-wider flex items-center gap-2">
+                        <span>🎨</span> <span data-i18n="os_artbook_sec_title">CONCEPT ARTBOOKS</span>
+                    </h3>
+                    <span data-i18n="os_artbook_volumes" class="text-xs font-mono text-zinc-400">2 VOLUMES</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="group relative bg-dark-900/90 rounded-3xl overflow-hidden border border-white/15 hover:border-purple-500/60 shadow-2xl transition-all duration-300 cursor-pointer"
+                        onclick="openModal('images/ARTBOOK-06.png', 'ARTBOOK Collection Vol. 06', 'Digital Concept Art', 'Collection Vol. 06 Showcase', '2026')">
+                        <div
+                            class="w-full aspect-[16/10] overflow-hidden bg-black/80 flex items-center justify-center p-2 relative">
+                            <img src="images/ARTBOOK-06.png" alt="ARTBOOK Vol 06"
+                                class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-4 flex items-center justify-between bg-dark-900 border-t border-white/5">
+                            <h4 data-i18n="os_artbook6_title"
+                                class="font-heading font-extrabold text-base text-white group-hover:text-purple-400 transition-colors">
+                                ARTBOOK Collection Vol. 06</h4>
+                            <span data-i18n="os_enlarge"
+                                class="text-xs text-purple-400 font-bold border border-purple-500/30 px-3 py-1.5 rounded-xl bg-purple-500/10">ENLARGE
+                                ↗</span>
+                        </div>
+                    </div>
+
+                    <div class="group relative bg-dark-900/90 rounded-3xl overflow-hidden border border-white/15 hover:border-purple-500/60 shadow-2xl transition-all duration-300 cursor-pointer"
+                        onclick="openModal('images/ARTBOOK-08.png', 'ARTBOOK Collection Vol. 08', 'Digital Concept Art', 'Collection Vol. 08 Showcase', '2026')">
+                        <div
+                            class="w-full aspect-[16/10] overflow-hidden bg-black/80 flex items-center justify-center p-2 relative">
+                            <img src="images/ARTBOOK-08.png" alt="ARTBOOK Vol 08"
+                                class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-4 flex items-center justify-between bg-dark-900 border-t border-white/5">
+                            <h4 data-i18n="os_artbook8_title"
+                                class="font-heading font-extrabold text-base text-white group-hover:text-purple-400 transition-colors">
+                                ARTBOOK Collection Vol. 08</h4>
+                            <span data-i18n="os_enlarge"
+                                class="text-xs text-purple-400 font-bold border border-purple-500/30 px-3 py-1.5 rounded-xl bg-purple-500/10">ENLARGE
+                                ↗</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -1631,26 +1445,24 @@
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
                 if (!AudioCtx) return;
                 const ctx = new AudioCtx();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(523.25, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.12);
-
-                gain.gain.setValueAtTime(0.05, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
-
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-
-                osc.start();
-                osc.stop(ctx.currentTime + 0.2);
+                const notes = [659.25, 783.99, 987.77, 1318.51];
+                notes.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.035);
+                    gain.gain.setValueAtTime(0.04, ctx.currentTime + idx * 0.035);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.035 + 0.12);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(ctx.currentTime + idx * 0.035);
+                    osc.stop(ctx.currentTime + idx * 0.035 + 0.12);
+                });
             } catch (e) { }
         }
 
         const screenContent = document.getElementById('screen-content');
-        const sections = ['art-1', 'art-2', 'fyp-project', 'roblox-project', 'escape-momster-project', 'jinji-portfolio-project', 'roblox-games', 'art-3', 'art-4', 'art-5', 'art-6', 'art-7'];
+        const sections = ['roblox-project', 'escape-momster-project', 'roblox-games', 'roblox-games-2', 'jinji-portfolio-project', 'fyp-project', 'art-1', 'art-3', 'art-4', 'art-5', 'art-6', 'art-7'];
         let currentSectionIdx = 0;
 
         const fypImages = [
@@ -1690,24 +1502,24 @@
                 nav_contact: "CONTACT",
                 nav_roblox_profile: "ROBLOX PROFILE ↗",
                 about_title: "ABOUT ME",
-                about_subtitle: "Jing Wen — Game Artist & Art Lead",
-                about_bio: "Game Artist & Art Lead specializing in 3D asset modeling, texturing, animation, and VFX. Experienced in leading artist teams, collaborating with developers, and delivering optimized art assets.",
+                about_subtitle: "Jing Wen — Game Artist & Art Lead (5+ Years Experience)",
+                about_bio: "Game Artist & Art Lead with 5+ years of experience specializing in 3D asset modeling, texturing, animation, VFX, and Roblox UGC. Experienced in leading artist teams, collaborating with developers, and delivering optimized art assets.",
                 about_skills: "CORE SKILLS",
                 about_tools: "SOFTWARE & TOOLS",
                 about_resume_btn: "VIEW RESUME",
                 expand_btn: "GRID MODE",
-                exit_os_mode: "✕ EXIT OS MODE",
+                exit_os_mode: "✕ EXIT",
                 os_title: "OS PORTFOLIO GRID VIEW",
                 os_subtitle: "| FULL-PAGE EXPANDED MODE",
                 os_tab_all: "ALL",
                 os_tab_artbook: "ARTBOOKS",
-                os_tab_fyp: "FYP GALLERY",
+                os_tab_fyp: "OTHERS WORK",
                 os_tab_monster: "FEATURED GAMES",
                 os_tab_roblox: "ROBLOX GAMES",
                 os_tab_videos: "VIDEOS",
-                os_fyp_sec_title: "GRADUATION PROJECT ALBUM",
+                os_fyp_sec_title: "OTHERS WORK GALLERY",
                 os_fyp_album_badge: "1 MASTER ALBUM (11 PAGES)",
-                os_fyp_card_title: "FYP Graduation Project Gallery",
+                os_fyp_card_title: "Others Work Gallery",
                 os_artbook_sec_title: "CONCEPT ARTBOOKS",
                 os_artbook_volumes: "2 VOLUMES",
                 os_artbook6_title: "ARTBOOK Collection Vol. 06",
@@ -1716,13 +1528,21 @@
                 os_monster_sec_title: "MONSTER RIDER SIMULATOR",
                 os_monster_card_title: "Monster Rider Simulator",
                 os_monster_play: "PLAY ON ROBLOX ↗",
+                what_i_did: "⚡ WHAT I DID",
+                mr_role_lead: "👑 Lead Art Team",
+                mr_role_env: "🏞️ Environment 3D Model & Design",
+                mr_role_monster: "👾 Monster Assets",
+                mr_role_vfx: "💥 VFX",
+                mr_role_anim: "🎬 Animation",
                 os_momster_sec_title: "ESCAPE THE MOMSTER",
                 os_momster_card_title: "Escape the Momster",
                 os_momster_play: "PLAY ON ROBLOX ↗",
                 os_videos_sec_title: "VIDEO SHOWCASES & GAMEPLAY DEMOS",
                 os_videos_count: "5 VIDEOS",
-                roblox_games_header: "MORE ROBLOX PARTICIPATED PROJECTS",
-                games_count: "6 GAMES",
+                roblox_games_header_1: "MORE ROBLOX PARTICIPATED PROJECTS (PAGE 1/2)",
+                roblox_games_header_2: "MORE ROBLOX PARTICIPATED PROJECTS (PAGE 2/2)",
+                games_count_1: "PAGE 1 OF 2",
+                games_count_2: "PAGE 2 OF 2",
                 my_role_header: "MY ROLE & KEY CONTRIBUTIONS",
                 my_role_badge: "Art Lead & Game Artist",
                 pillar1_title: "Art Lead",
@@ -1735,13 +1555,13 @@
                 pillar4_desc: "Created keyframe character, weapon & gameplay ability animations.",
                 play_btn: "PLAY ↗",
                 sectionTitles: {
-                    'art-1': 'ARTBOOK Collection Vol. 06',
-                    'art-2': 'ARTBOOK Collection Vol. 08',
-                    'fyp-project': 'FYP Project Gallery',
+                    'art-1': 'ARTBOOK Collection (Vol. 06 & 08)',
+                    'fyp-project': 'Others Work Gallery',
                     'roblox-project': 'Monster Rider Simulator',
                     'escape-momster-project': 'Escape the Momster',
                     'jinji-portfolio-project': "Jinji's 3D Portfolio Place",
-                    'roblox-games': 'More Roblox Projects (6 Games)',
+                    'roblox-games': 'More Roblox Projects (1/2)',
+                    'roblox-games-2': 'More Roblox Projects (2/2)',
                     'art-3': 'Video Showcase 01',
                     'art-4': 'Video Showcase 02',
                     'art-5': 'Video Showcase 03',
@@ -1755,24 +1575,24 @@
                 nav_contact: "联系我",
                 nav_roblox_profile: "ROBLOX 个人主页 ↗",
                 about_title: "关于我",
-                about_subtitle: "Jing Wen — 游戏美术师 / 美术主导",
-                about_bio: "游戏美术师与美术主导，专注于 3D 资产建模、贴图、动画与特效（VFX）。擅长带领美术团队、与开发人员协同工作，并交付高质量、低能耗的 3D 资产。",
+                about_subtitle: "Jing Wen — 游戏美术师 / 美术主导（5 年+ 经验）",
+                about_bio: "拥有 5 年以上从业经验的游戏美术师与美术主导，专注于 3D 资产建模、贴图、动作动画、视觉特效（VFX）与 Roblox UGC 制作。擅长带领美术团队、与开发人员协同工作，并交付高质量、低能耗的 3D 资产。",
                 about_skills: "核心技能",
                 about_tools: "工具与软件",
                 about_resume_btn: "查看简历",
                 expand_btn: "卡片模式",
-                exit_os_mode: "✕ 退出卡片模式",
+                exit_os_mode: "✕ 退出",
                 os_title: "全景作品集 OS 矩阵视图",
                 os_subtitle: "| 全屏展开模式",
                 os_tab_all: "全部",
-                os_tab_artbook: "画集精选",
-                os_tab_fyp: "毕业设计",
                 os_tab_monster: "主打项目",
                 os_tab_roblox: "ROBLOX 游戏",
+                os_tab_fyp: "其他作品",
+                os_tab_artbook: "画集精选",
                 os_tab_videos: "视频展示",
-                os_fyp_sec_title: "FYP 毕业设计作品展",
+                os_fyp_sec_title: "其他作品展",
                 os_fyp_album_badge: "1 套完整画册 (11 页)",
-                os_fyp_card_title: "FYP 毕业设计概念画廊",
+                os_fyp_card_title: "其他作品画廊",
                 os_artbook_sec_title: "概念画集精选",
                 os_artbook_volumes: "2 册精选",
                 os_artbook6_title: "画集精选系列 第 06 卷",
@@ -1781,13 +1601,21 @@
                 os_monster_sec_title: "MONSTER RIDER 骑手模拟器",
                 os_monster_card_title: "Monster Rider 骑手模拟器",
                 os_monster_play: "在 ROBLOX 上游玩 ↗",
+                what_i_did: "⚡ 我的职责与贡献",
+                mr_role_lead: "👑 美术组长",
+                mr_role_env: "🏞️ 3D 环境建模与设计",
+                mr_role_monster: "👾 怪物资产",
+                mr_role_vfx: "💥 视觉特效 (VFX)",
+                mr_role_anim: "🎬 动作动画",
                 os_momster_sec_title: "ESCAPE THE MOMSTER 逃离主脑",
                 os_momster_card_title: "Escape the Momster",
                 os_momster_play: "在 ROBLOX 上游玩 ↗",
                 os_videos_sec_title: "视频展示与玩法演示",
                 os_videos_count: "5 个视频",
-                roblox_games_header: "更多 ROBLOX 参与游戏项目",
-                games_count: "6 款游戏",
+                roblox_games_header_1: "更多 ROBLOX 参与游戏项目 (第 1/2 页)",
+                roblox_games_header_2: "更多 ROBLOX 参与游戏项目 (第 2/2 页)",
+                games_count_1: "第 1 / 2 页",
+                games_count_2: "第 2 / 2 页",
                 my_role_header: "我的职责与主要贡献",
                 my_role_badge: "美术组长 & 游戏美术",
                 pillar1_title: "美术组长",
@@ -1800,13 +1628,13 @@
                 pillar4_desc: "制作角色、武器及玩法技能的关键帧动作动画。",
                 play_btn: "游玩 ↗",
                 sectionTitles: {
-                    'art-1': '画集精选系列 第 06 卷',
-                    'art-2': '画集精选系列 第 08 卷',
-                    'fyp-project': 'FYP 毕业设计作品展',
+                    'art-1': '概念画集精选 (Vol. 06 & 08)',
+                    'fyp-project': '其他作品展',
                     'roblox-project': 'Monster Rider 骑手模拟器',
                     'escape-momster-project': 'Escape the Momster',
                     'jinji-portfolio-project': "Jinji's 3D 交互作品集 Place",
-                    'roblox-games': '更多 Roblox 参与项目 (6 款)',
+                    'roblox-games': '更多 Roblox 参与项目 (第 1/2 页)',
+                    'roblox-games-2': '更多 Roblox 参与项目 (第 2/2 页)',
                     'art-3': '视频展示 01',
                     'art-4': '视频展示 02',
                     'art-5': '视频展示 03',
@@ -1856,7 +1684,7 @@
             const secId = sections[currentSectionIdx];
             if (secId) {
                 if (secId === 'fyp-project') {
-                    updateProjectTitle(lang === 'zh' ? `FYP 毕业设计 (${currentFypIdx + 1}/11)` : `FYP Project (${currentFypIdx + 1}/11)`);
+                    updateProjectTitle(lang === 'zh' ? `其他作品 (${currentFypIdx + 1}/11)` : `Others Work (${currentFypIdx + 1}/11)`);
                 } else if (secId === 'roblox-project') {
                     updateProjectTitle(lang === 'zh' ? `Monster Rider (${currentRobloxIdx + 1}/9)` : `Monster Rider (${currentRobloxIdx + 1}/9)`);
                 } else if (translations[lang].sectionTitles[secId]) {
@@ -1883,6 +1711,57 @@
             }
         }
 
+        const projectRolesMap = {
+            'art-1': {
+                title: 'CONCEPT ARTBOOKS (VOL. 06 & 08)',
+                tags: '<span class="px-2.5 py-1 rounded-lg bg-purple-500/20 border border-purple-500/40 text-purple-300 text-xs font-bold">🎨 Others Work</span>'
+            },
+            'fyp-project': {
+                title: 'Others Work Gallery',
+                tags: '<span class="px-2.5 py-1 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-xs font-bold">🎨 Others Work</span>'
+            },
+            'roblox-project': {
+                title: 'Monster Rider Simulator',
+                tags: `<span class="px-2.5 py-1 rounded-lg bg-red-500/20 border border-red-500/40 text-red-300 text-xs font-bold" data-i18n="mr_role_lead">👑 Lead Art Team</span>
+                       <span class="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-zinc-200 text-xs font-medium" data-i18n="mr_role_env">🏞️ Environment 3D Model & Design</span>
+                       <span class="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-zinc-200 text-xs font-medium" data-i18n="mr_role_monster">👾 Monster Assets</span>
+                       <span class="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-zinc-200 text-xs font-medium" data-i18n="mr_role_vfx">💥 VFX</span>
+                       <span class="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-zinc-200 text-xs font-medium" data-i18n="mr_role_anim">🎬 Animation</span>`
+            },
+            'escape-momster-project': {
+                title: 'Escape the Momster',
+                tags: '<span class="px-2.5 py-1 rounded-lg bg-purple-500/20 border border-purple-500/40 text-purple-300 text-xs font-bold">👑 Art Lead</span><span class="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-zinc-200 text-xs font-medium">👕 UGC</span>'
+            },
+            'jinji-portfolio-project': {
+                title: "Jinji's 3D Portfolio Place",
+                tags: '<span class="px-2.5 py-1 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-xs font-bold">🎮 3D Showcase World</span>'
+            },
+            'roblox-games': {
+                title: 'More Roblox Projects (1/2)',
+                tags: '<span class="px-2.5 py-1 rounded-lg bg-red-500/20 border border-red-500/40 text-red-300 text-xs font-bold">🎮 Game Artist & Art Lead (Part 1)</span>'
+            },
+            'roblox-games-2': {
+                title: 'More Roblox Projects (2/2)',
+                tags: '<span class="px-2.5 py-1 rounded-lg bg-red-500/20 border border-red-500/40 text-red-300 text-xs font-bold">🎮 Game Artist & Art Lead (Part 2)</span>'
+            }
+        };
+
+        function updateFloatingHud(secId) {
+            const tagsEl = document.getElementById('hud-role-tags');
+            if (!tagsEl) return;
+
+            const info = projectRolesMap[secId];
+            if (info) {
+                tagsEl.innerHTML = info.tags;
+                if (currentLang === 'zh') {
+                    document.querySelectorAll('#hud-role-tags [data-i18n]').forEach(el => {
+                        const key = el.getAttribute('data-i18n');
+                        if (translations.zh[key]) el.textContent = translations.zh[key];
+                    });
+                }
+            }
+        }
+
         // IntersectionObserver for real-time dynamic ambient background & project title changes on scroll
         if (screenContent) {
             const observerOptions = {
@@ -1895,10 +1774,11 @@
                     if (entry.isIntersecting) {
                         const secId = entry.target.id;
                         currentSectionIdx = sections.indexOf(secId);
+                        updateFloatingHud(secId);
 
                         if (secId === 'fyp-project') {
                             updateAmbientBackground(fypImages[currentFypIdx]);
-                            updateProjectTitle(`FYP Project (${currentFypIdx + 1}/11)`);
+                            updateProjectTitle(`Others Work (${currentFypIdx + 1}/11)`);
                         } else if (secId === 'roblox-project') {
                             updateAmbientBackground(robloxImages[currentRobloxIdx]);
                             updateProjectTitle(`Monster Rider (${currentRobloxIdx + 1}/9)`);
@@ -1974,7 +1854,7 @@
             } else if (clickX > rect.width * 0.75) {
                 navigateRobloxImage(1);
             } else {
-                openModal(document.getElementById('roblox-main-img').src, 'Monster Rider Simulator', 'Roblox Game', 'Monster Rider Simulator Game Screenshot', '2026');
+                openModal(document.getElementById('roblox-main-img').src, 'Monster Rider Simulator', 'Roblox Game', 'Lead Art Team • Environment 3D Model & Design • Monster Assets • VFX • Animation', '2026');
             }
         }
 
@@ -2076,7 +1956,7 @@
             } else if (clickX > rect.width * 0.75) {
                 navigateFypImage(1);
             } else {
-                openModal(document.getElementById('fyp-main-img').src, 'FYP Project Artwork', 'Concept & Design', 'FYP Series Full Resolution View', '2026');
+                openModal(document.getElementById('fyp-main-img').src, 'Others Work Artwork', 'Others Work', 'Others Work Series Full Resolution View', '2026');
             }
         }
 
@@ -2361,6 +2241,8 @@
             }
         }
 
+        let aboutAutoCloseTimer = null;
+
         function openAboutModal() {
             playChimeSound();
             const modal = document.getElementById('about-modal');
@@ -2368,9 +2250,21 @@
                 modal.classList.remove('hidden');
                 setTimeout(() => modal.classList.remove('opacity-0'), 10);
             }
+
+            if (aboutAutoCloseTimer) clearTimeout(aboutAutoCloseTimer);
+            aboutAutoCloseTimer = setTimeout(() => {
+                const modal = document.getElementById('about-modal');
+                if (modal && !modal.classList.contains('hidden')) {
+                    closeAboutModal();
+                }
+            }, 12000);
         }
 
         function closeAboutModal() {
+            if (aboutAutoCloseTimer) {
+                clearTimeout(aboutAutoCloseTimer);
+                aboutAutoCloseTimer = null;
+            }
             playChimeSound();
             const modal = document.getElementById('about-modal');
             if (modal) {
@@ -2483,6 +2377,11 @@
             if (osModal && !osModal.classList.contains('hidden')) {
                 if (e.key === 'Escape') closeOsMode();
             }
+        });
+
+        // Automatically open About Me modal on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(openAboutModal, 300);
         });
     </script>
 </body>
