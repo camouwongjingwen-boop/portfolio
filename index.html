@@ -992,7 +992,10 @@
         <!-- OS Header Bar -->
         <header
             class="w-full px-4 sm:px-8 py-4 bg-dark-900/90 border-b border-white/10 flex items-center justify-between shrink-0 shadow-2xl z-20">
-            <div></div>
+            <div class="flex items-center gap-2.5">
+                <img src="images/Avatar/Avatar.png" alt="Avatar" class="w-6 h-6 rounded-full object-cover border border-white/20">
+                <span class="font-pixel text-xs text-white tracking-widest uppercase hidden sm:inline">JING WEN PORTFOLIO</span>
+            </div>
 
             <!-- OS Filter Tabs -->
             <div class="hidden lg:flex items-center gap-2 bg-white/5 p-1 rounded-xl border border-white/10">
@@ -1015,7 +1018,7 @@
 
             <div class="flex items-center gap-3">
                 <button onclick="closeOsMode()"
-                    class="px-4 py-2 rounded-xl bg-red-600/90 hover:bg-red-500 text-white font-heading font-bold text-xs shadow-lg flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 border border-white/20">
+                    class="px-4 py-2 rounded-xl bg-red-600/90 hover:bg-red-500 text-white font-heading font-bold text-xs shadow-lg flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 border border-white/20 cursor-pointer">
                     <span data-i18n="exit_os_mode">✕ EXIT</span>
                 </button>
             </div>
@@ -1507,7 +1510,7 @@
                 about_skills: "CORE SKILLS",
                 about_tools: "SOFTWARE & TOOLS",
                 about_resume_btn: "VIEW RESUME",
-                expand_btn: "GRID MODE",
+                expand_btn: "⛶ GRID MODE",
                 exit_os_mode: "✕ EXIT",
                 os_title: "OS PORTFOLIO GRID VIEW",
                 os_subtitle: "| FULL-PAGE EXPANDED MODE",
@@ -1580,7 +1583,7 @@
                 about_skills: "核心技能",
                 about_tools: "工具与软件",
                 about_resume_btn: "查看简历",
-                expand_btn: "卡片模式",
+                expand_btn: "⛶ 矩阵模式",
                 exit_os_mode: "✕ 退出",
                 os_title: "全景作品集 OS 矩阵视图",
                 os_subtitle: "| 全屏展开模式",
@@ -2379,8 +2382,9 @@
             }
         });
 
-        // Automatically open About Me modal on page load
+        // Automatically open Grid Mode as base landing view and trigger About Me modal popout on boot
         window.addEventListener('DOMContentLoaded', () => {
+            openOsMode();
             setTimeout(openAboutModal, 300);
         });
     </script>
